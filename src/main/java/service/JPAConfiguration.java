@@ -19,6 +19,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @ComponentScan
+@EnableJpaRepositories(basePackages="DAO.repositories")
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 public class JPAConfiguration
 {
