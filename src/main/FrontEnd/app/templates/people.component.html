@@ -1,0 +1,8 @@
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+<table>
+    <tr *ngFor="let person of people" (click)="onSelect(person)">
+        <td>{{person.id}}</td>
+        <td>{{person.name}} {{person.surname}}</td>
+        <td>{{person.email}}</td>
+    </tr>
+</table>
