@@ -1,20 +1,22 @@
 package DAO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
-import java.util.Base64;
 
 @Entity(name = "entities")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class EntityBase
 {
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Email
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "creation_date", nullable = false)
     private Date creationDate;
@@ -22,6 +24,7 @@ public class EntityBase
     @Column(name = "modification_date", nullable = false)
     private Date modificationDate;
 
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -36,15 +39,9 @@ public class EntityBase
         this.password = password;
     }
 
-    public long getId() { return id; }
+    public String getEmail() { return email; }
 
-    public void setId(long id)
-    {
-        if(id < 0)
-            throw new IllegalArgumentException("Id must be a positive value");
-
-        this.id = id;
-    }
+    public void setEmail(String email) { this.email = email; }
 
     public Date getCreationDate() { return creationDate; }
 
