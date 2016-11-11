@@ -1,7 +1,6 @@
 package DAO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
@@ -9,12 +8,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 
+/**
+ * Entity that is the base for person and company entities.
+ * Is referenced by email, address and phone entities.
+ */
 @Entity(name = "entities")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class EntityBase
 {
     @Id
-    @Email
     @Column(name = "email", nullable = false)
     private String email;
 
