@@ -15,10 +15,12 @@ import { PersonService } from './services/person.service';
     HttpModule,
     JsonpModule,
     RouterModule.forRoot([
+      { path: '', redirectTo: 'people', pathMatch: 'full' },
       {
         path: 'people',
         component: PeopleComponent
       },
+      
       //{
         //path: 'person/:id',
         //component: PersonDetailComponent

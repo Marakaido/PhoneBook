@@ -14,6 +14,7 @@ export class PeopleComponent implements OnInit
     errorMessage: string;
     selectedPerson: Person;
     people: Person[];
+    person: any;
 
     constructor(private personService: PersonService) { }
     
@@ -22,7 +23,9 @@ export class PeopleComponent implements OnInit
     }
 
     getPeople(): void {
-        this.personService.getPeople().then(people => this.people = people);
+        this.personService.getPeople().subscribe(
+            people => this.people = people,
+            error =>  this.errorMessage = <any>error);
     }
 
     ngOnInit(): void {

@@ -4,5 +4,5 @@ build
 .idea
 .vscode
 node_modules
-src/main/FrontEnd/app/**/*.js
-src/main/FrontEnd/app/**/*.map
+src/main/resources/static/app/**/*.js
+src/main/resources/static/app/**/*.map

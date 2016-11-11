@@ -1,5 +1,6 @@
 package service;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import DAO.Email;
@@ -19,7 +20,7 @@ public class Controller
     private PersonRepository repository;
 
     @RequestMapping("/greeting")
-    public Email greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return new Email("test@gmail.com", repository.getByName("Yaroslav").get(0));
+    public List<Person> greeting(@RequestParam(value="name", defaultValue="World") String name) {
+        return repository.findAll();
     }
 }
