@@ -15,12 +15,23 @@ require('rxjs/add/operator/catch');
 var PersonService = (function () {
     function PersonService(http) {
         this.http = http;
-        this.apiUrl = 'localhost:8080/';
-        this.peopleUrl = this.apiUrl + 'greeting'; // URL to web API
     }
     PersonService.prototype.getPeople = function () {
-        return this.http.get('greeting')
+        return this.http.get('/service/people-list')
             .map(this.extractData)
+            .catch(this.handleError);
+    };
+    PersonService.prototype.registerPerson = function (data) {
+        var headers = new http_1.Headers();
+        headers.append("Content-Type", 'application/json');
+        var requestoptions = new http_1.RequestOptions({
+            method: http_1.RequestMethod.Post,
+            url: '/service/register-person',
+            headers: headers,
+            body: JSON.stringify(data)
+        });
+        return this.http.request(new http_1.Request(requestoptions))
+            .map(function (response) { return response; })
             .catch(this.handleError);
     };
     PersonService.prototype.extractData = function (res) {
@@ -30,7 +41,7 @@ var PersonService = (function () {
     };
     PersonService.prototype.handleError = function (error) {
         // In a real world app, we might use a remote logging infrastructure
-        var errMsg;
+        var errMsg = "Error";
         if (error instanceof http_1.Response) {
             var body = error.json() || '';
             var err = body.error || JSON.stringify(body);

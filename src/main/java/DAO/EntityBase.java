@@ -26,7 +26,6 @@ public class EntityBase
     @Column(name = "modification_date", nullable = false)
     private Date modificationDate;
 
-    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 

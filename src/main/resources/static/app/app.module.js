@@ -15,6 +15,7 @@ var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var people_component_1 = require('./people.component');
+var personRegistration_component_1 = require('./personRegistration.component');
 var person_service_1 = require('./services/person.service');
 var AppModule = (function () {
     function AppModule() {
@@ -27,16 +28,19 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 http_1.JsonpModule,
                 router_1.RouterModule.forRoot([
-                    { path: '', redirectTo: 'people', pathMatch: 'full' },
                     {
                         path: 'people',
                         component: people_component_1.PeopleComponent
                     },
-                ])
+                    {
+                        path: 'person',
+                        component: personRegistration_component_1.PersonRegistrationComponent
+                    }])
             ],
             declarations: [
                 app_component_1.AppComponent,
-                people_component_1.PeopleComponent
+                people_component_1.PeopleComponent,
+                personRegistration_component_1.PersonRegistrationComponent
             ],
             providers: [
                 person_service_1.PersonService

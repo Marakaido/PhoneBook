@@ -1,7 +1,7 @@
 <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
 <table>
     <tr *ngFor="let person of people" (click)="onSelect(person)">
-        <td>{{person.id}}</td>
+        <td>{{person.email}}</td>
         <td>{{person.name}}</td>
         <td>{{person.surname}}</td>
     </tr>

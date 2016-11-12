@@ -1,0 +1,26 @@
+<span *ngIf="responseMessage">{{responseMessage}}</span>
+<table>
+    <tr>
+        <td>Email</td>
+        <td><input type="email" [(ngModel)]="person.email"/></td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td><input type="text" [(ngModel)]="person.name" /></td>
+    </tr>
+    <tr>
+        <td>Surname</td>
+        <td><input type="text" [(ngModel)]="person.surname" /></td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td><input type="password" [(ngModel)]="person.password" /></td>
+    </tr>
+    <tr>
+        <td>Repeat password</td>
+        <td><input type="password"/></td>
+    </tr>
+    <tr>
+        <td colspan=2><button type="submit" (click)="onSubmit()">Submit</button></td>
+    </tr>
+</table>

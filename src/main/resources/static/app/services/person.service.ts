@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions, RequestMethod, Headers, Request } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -7,19 +7,28 @@ import 'rxjs/add/operator/catch';
 
 import { Person } from '../entities/Person';
 
-import { PEOPLE } from '../mocks/mock-people';
-
 @Injectable()
 export class PersonService {
-    private apiUrl = 'localhost:8080/';
-    private peopleUrl = this.apiUrl + 'greeting';  // URL to web API
-    
     constructor (private http: Http) {}
     
     getPeople(): Observable<Person[]> {
-        return this.http.get('greeting')
+        return this.http.get('/service/people-list')
                     .map(this.extractData)
                     .catch(this.handleError);
+    }
+
+    registerPerson(data:Person): Observable<string> {
+        var headers = new Headers();
+        headers.append("Content-Type", 'application/json');
+        var requestoptions = new RequestOptions({
+            method: RequestMethod.Post,
+            url: '/service/register-person',
+            headers: headers,
+            body: JSON.stringify(data)
+        });
+        return this.http.request(new Request(requestoptions))
+        .map(response => response)
+        .catch(this.handleError);
     }
 
     private extractData(res: Response) {
@@ -30,7 +39,7 @@ export class PersonService {
 
     private handleError (error: Response | any) {
         // In a real world app, we might use a remote logging infrastructure
-        let errMsg: string;
+        let errMsg = "Error";
         if (error instanceof Response) {
             const body = error.json() || '';
             const err = body.error || JSON.stringify(body);
