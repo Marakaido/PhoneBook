@@ -9,37 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var Person_1 = require('./entities/Person');
 var person_service_1 = require('./services/person.service');
-var PeopleComponent = (function () {
-    function PeopleComponent(personService) {
+var PersonRegistrationComponent = (function () {
+    function PersonRegistrationComponent(personService) {
         this.personService = personService;
-        this.people = new Array();
-        this.count = 10;
-        this.page = 0;
+        this.person = new Person_1.Person();
     }
-    PeopleComponent.prototype.onSelect = function (person) {
-        this.selectedPerson = person;
-    };
-    PeopleComponent.prototype.getPeople = function () {
-        this.loadMore();
-    };
-    PeopleComponent.prototype.loadMore = function () {
+    PersonRegistrationComponent.prototype.onSubmit = function () {
         var _this = this;
-        this.personService.getPeople(this.page, this.count).subscribe(function (people) { return _this.people = _this.people.concat(people); }, function (error) { return _this.errorMessage = error; }, function () { return null; });
-        this.page += 1;
+        alert(JSON.stringify(this.person));
+        this.personService.registerPerson(this.person).subscribe(function (response) { return _this.responseMessage = response; }, function (error) { return _this.responseMessage = error; });
     };
-    PeopleComponent.prototype.ngOnInit = function () {
-        this.getPeople();
-    };
-    PeopleComponent = __decorate([
+    PersonRegistrationComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'people-list',
-            templateUrl: './templates/people.component.html'
+            selector: 'person-registration',
+            templateUrl: './templates/person-registration.component.html'
         }), 
         __metadata('design:paramtypes', [person_service_1.PersonService])
-    ], PeopleComponent);
-    return PeopleComponent;
+    ], PersonRegistrationComponent);
+    return PersonRegistrationComponent;
 }());
-exports.PeopleComponent = PeopleComponent;
-//# sourceMappingURL=people.component.js.map
+exports.PersonRegistrationComponent = PersonRegistrationComponent;
+//# sourceMappingURL=personRegistration.component.js.map

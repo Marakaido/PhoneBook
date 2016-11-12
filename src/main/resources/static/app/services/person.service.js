@@ -16,8 +16,8 @@ var PersonService = (function () {
     function PersonService(http) {
         this.http = http;
     }
-    PersonService.prototype.getPeople = function () {
-        return this.http.get('/service/people-list')
+    PersonService.prototype.getPeople = function (page, count) {
+        return this.http.get('/service/people-list?' + 'page=' + page + '&count=' + count)
             .map(this.extractData)
             .catch(this.handleError);
     };

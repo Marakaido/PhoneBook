@@ -11,8 +11,8 @@ import { Person } from '../entities/Person';
 export class PersonService {
     constructor (private http: Http) {}
     
-    getPeople(): Observable<Person[]> {
-        return this.http.get('/service/people-list')
+    getPeople(page: number, count: number): Observable<Person[]> {
+        return this.http.get('/service/people-list?' + 'page=' + page + '&count=' + count)
                     .map(this.extractData)
                     .catch(this.handleError);
     }

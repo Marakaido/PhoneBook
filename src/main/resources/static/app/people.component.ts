@@ -13,8 +13,10 @@ export class PeopleComponent implements OnInit
 {
     errorMessage: string;
     selectedPerson: Person;
-    people: Person[];
+    people: Person[] = new Array<Person>();
     person: any;
+    count: number = 10;
+    page: number = 0;
 
     constructor(private personService: PersonService) { }
     
@@ -23,9 +25,15 @@ export class PeopleComponent implements OnInit
     }
 
     getPeople(): void {
-        this.personService.getPeople().subscribe(
-            people => this.people = people,
-            error =>  this.errorMessage = <any>error);
+        this.loadMore();
+    }
+
+    loadMore(): void {
+        this.personService.getPeople(this.page, this.count).subscribe(
+            people => this.people = this.people.concat(people),
+            error =>  this.errorMessage = <any>error,
+            () => null);
+        this.page += 1;
     }
 
     ngOnInit(): void {
