@@ -17,10 +17,17 @@ public class Controller
     private PersonRepository personRepository;
 
     @RequestMapping(path = "service/people-list")
-    public List<Person> peopleList(@RequestParam(value="page", defaultValue="0") int page,
+    public List<Person> getListOfPeople(@RequestParam(value="page", defaultValue="0") int page,
                                    @RequestParam(value="count", defaultValue = "10") int count)
     {
         return personRepository.findAll(new PageRequest(page, count)).getContent();
+    }
+
+    @RequestMapping(path = "service/person/{email}/")
+    public Person getPerson(@PathVariable String email)
+    {
+        System.out.println(email);
+        return personRepository.getByEmail(email);
     }
 
     @RequestMapping(path = "service/register-person", method = RequestMethod.POST, consumes="application/json", produces="text/plain")

@@ -17,6 +17,7 @@ var app_component_1 = require('./app.component');
 var people_component_1 = require('./people.component');
 var personRegistration_component_1 = require('./personRegistration.component');
 var person_service_1 = require('./services/person.service');
+var personInfo_component_1 = require('./personInfo.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -33,14 +34,24 @@ var AppModule = (function () {
                         component: people_component_1.PeopleComponent
                     },
                     {
-                        path: 'person',
+                        path: 'person-registration',
                         component: personRegistration_component_1.PersonRegistrationComponent
+                    },
+                    {
+                        path: 'person/:email',
+                        component: personInfo_component_1.PersonInfoComponent
+                    },
+                    {
+                        path: '',
+                        redirectTo: 'people',
+                        pathMatch: 'full'
                     }])
             ],
             declarations: [
                 app_component_1.AppComponent,
                 people_component_1.PeopleComponent,
-                personRegistration_component_1.PersonRegistrationComponent
+                personRegistration_component_1.PersonRegistrationComponent,
+                personInfo_component_1.PersonInfoComponent
             ],
             providers: [
                 person_service_1.PersonService

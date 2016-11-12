@@ -8,6 +8,7 @@ import { AppComponent }   from './app.component';
 import { PeopleComponent } from './people.component';
 import { PersonRegistrationComponent } from './personRegistration.component'
 import { PersonService } from './services/person.service';
+import { PersonInfoComponent } from './personInfo.component';
 
 @NgModule({
   imports:      [ 
@@ -21,14 +22,24 @@ import { PersonService } from './services/person.service';
         component: PeopleComponent
       },
       {
-        path: 'person',
+        path: 'person-registration',
         component: PersonRegistrationComponent
+      },
+      {
+        path: 'person/:email',
+        component: PersonInfoComponent
+      },
+      {
+        path: '',
+        redirectTo: 'people',
+        pathMatch: 'full'
       }])
   ],
   declarations: [ 
     AppComponent,
     PeopleComponent,
-    PersonRegistrationComponent
+    PersonRegistrationComponent,
+    PersonInfoComponent
   ],
   providers: [
     PersonService

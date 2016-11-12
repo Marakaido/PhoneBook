@@ -17,6 +17,8 @@ public interface PersonRepository extends JpaRepository<Person, Long>
 
     List<Person> getBySurname(String surname);
 
+    Person getByEmail(String email);
+
     Person getByCreationDate(Date date);
 
     Person getByModificationDate(Date date);

@@ -21,6 +21,11 @@ var PersonService = (function () {
             .map(this.extractData)
             .catch(this.handleError);
     };
+    PersonService.prototype.getPerson = function (email) {
+        return this.http.get('/service/person/' + email + '/')
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
     PersonService.prototype.registerPerson = function (data) {
         var headers = new http_1.Headers();
         headers.append("Content-Type", 'application/json');

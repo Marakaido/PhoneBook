@@ -1,6 +1,6 @@
 <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
 <table>
-    <tr *ngFor="let person of people" (click)="onSelect(person)">
+    <tr *ngFor="let person of people" [routerLink]="['/person', person.email]" (click)="onSelect(person)">
         <td>{{person.email}}</td>
         <td>{{person.name}}</td>
         <td>{{person.surname}}</td>

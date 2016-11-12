@@ -17,6 +17,12 @@ export class PersonService {
                     .catch(this.handleError);
     }
 
+    getPerson(email: string): Observable<Person> {
+        return this.http.get('/service/person/' + email + '/')
+                    .map(this.extractData)
+                    .catch(this.handleError);
+    }
+
     registerPerson(data:Person): Observable<string> {
         var headers = new Headers();
         headers.append("Content-Type", 'application/json');
@@ -50,8 +56,4 @@ export class PersonService {
         console.error(errMsg);
         return null;
     }
-
-    //getPerson(id: number): Promise<Person> {
-      //  return this.getPeople().then(people => people.find(hero => hero.id === id));
-    //}
 }
