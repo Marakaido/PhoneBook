@@ -1,0 +1,10 @@
+<button (click)="goBack()">Back</button>
+
+<p *ngIf="errorMessage">{{errorMessage}}</p>
+
+<div *ngIf="person">
+<label>Name: </label><input type="text" [(ngModel)]="person.name"><br>
+<label>Surname: </label><input type="text" [(ngModel)]="person.surname"><br>
+<label>Profile created: </label><input type="text" [(ngModel)]="person.creationDate"><br>
+<label>Last modified: </label><input type="text" [(ngModel)]="person.modificationDate">
+</div>

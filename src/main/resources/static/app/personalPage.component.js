@@ -12,31 +12,29 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var common_1 = require('@angular/common');
 var person_service_1 = require('./services/person.service');
-var PersonInfoComponent = (function () {
-    function PersonInfoComponent(personService, route, location) {
+var session_service_1 = require('./services/session.service');
+var PersonalPageComponent = (function () {
+    function PersonalPageComponent(personService, session, route, location) {
         this.personService = personService;
+        this.session = session;
         this.route = route;
         this.location = location;
     }
-    PersonInfoComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.route.params.forEach(function (params) {
-            var email = params['email'];
-            _this.personService.getPerson(email).subscribe(function (response) { return _this.person = response; }, function (error) { return _this.errorMessage = error; }, function () { return null; });
-        });
+    PersonalPageComponent.prototype.ngOnInit = function () {
+        this.person = this.session.getUser();
     };
-    PersonInfoComponent.prototype.goBack = function () {
+    PersonalPageComponent.prototype.goBack = function () {
         this.location.back();
     };
-    PersonInfoComponent = __decorate([
+    PersonalPageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'person-info',
-            templateUrl: './templates/person-info.component.html'
+            selector: 'personal-page',
+            templateUrl: './templates/personal-page.component.html'
         }), 
-        __metadata('design:paramtypes', [person_service_1.PersonService, router_1.ActivatedRoute, common_1.Location])
-    ], PersonInfoComponent);
-    return PersonInfoComponent;
+        __metadata('design:paramtypes', [person_service_1.PersonService, session_service_1.SessionService, router_1.ActivatedRoute, common_1.Location])
+    ], PersonalPageComponent);
+    return PersonalPageComponent;
 }());
-exports.PersonInfoComponent = PersonInfoComponent;
-//# sourceMappingURL=personInfo.component.js.map
+exports.PersonalPageComponent = PersonalPageComponent;
+//# sourceMappingURL=personalPage.component.js.map

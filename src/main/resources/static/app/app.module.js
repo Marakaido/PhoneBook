@@ -20,6 +20,7 @@ var person_service_1 = require('./services/person.service');
 var session_service_1 = require('./services/session.service');
 var personInfo_component_1 = require('./personInfo.component');
 var login_component_1 = require('./login.component');
+var personalPage_component_1 = require('./personalPage.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -44,6 +45,10 @@ var AppModule = (function () {
                         component: personInfo_component_1.PersonInfoComponent
                     },
                     {
+                        path: 'personal-page',
+                        component: personalPage_component_1.PersonalPageComponent
+                    },
+                    {
                         path: '',
                         redirectTo: 'people',
                         pathMatch: 'full'
@@ -54,7 +59,8 @@ var AppModule = (function () {
                 people_component_1.PeopleComponent,
                 personRegistration_component_1.PersonRegistrationComponent,
                 personInfo_component_1.PersonInfoComponent,
-                login_component_1.LoginComponent
+                login_component_1.LoginComponent,
+                personalPage_component_1.PersonalPageComponent
             ],
             providers: [
                 person_service_1.PersonService,

@@ -11,6 +11,7 @@ import { PersonService } from './services/person.service';
 import { SessionService } from './services/session.service';
 import { PersonInfoComponent } from './personInfo.component';
 import { LoginComponent } from './login.component';
+import { PersonalPageComponent } from './personalPage.component';
 
 @NgModule({
   imports:      [ 
@@ -32,6 +33,10 @@ import { LoginComponent } from './login.component';
         component: PersonInfoComponent
       },
       {
+        path: 'personal-page',
+        component: PersonalPageComponent
+      },
+      {
         path: '',
         redirectTo: 'people',
         pathMatch: 'full'
@@ -42,7 +47,8 @@ import { LoginComponent } from './login.component';
     PeopleComponent,
     PersonRegistrationComponent,
     PersonInfoComponent,
-    LoginComponent
+    LoginComponent,
+    PersonalPageComponent
   ],
   providers: [
     PersonService,

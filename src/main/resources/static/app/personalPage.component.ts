@@ -4,31 +4,27 @@ import { Location }                 from '@angular/common';
 
 import { Person } from './entities/Person';
 import { PersonService } from './services/person.service';
+import { SessionService } from './services/session.service';
 
 @Component({
     moduleId : module.id,
-    selector: 'person-info',
-    templateUrl: './templates/person-info.component.html'
+    selector: 'personal-page',
+    templateUrl: './templates/personal-page.component.html'
 })
-export class PersonInfoComponent implements OnInit
+export class PersonalPageComponent implements OnInit
 {
     person: Person;
     errorMessage: string;
 
     constructor(
         private personService: PersonService,
+        private session: SessionService,
         private route: ActivatedRoute,
         private location: Location
     ) {}
 
     ngOnInit(): void {
-        this.route.params.forEach((params: Params) => {
-            let email = params['email'];
-            this.personService.getPerson(email).subscribe(
-                response => this.person = response,
-                error =>  this.errorMessage = <any>error,
-                () => null);
-        });
+        this.person = this.session.getUser();
     }
 
     goBack(): void {
