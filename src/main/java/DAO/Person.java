@@ -13,9 +13,14 @@ public class Person extends EntityBase
 
     public Person() {}
 
-    public Person(String name, String surname, String password)
+    public Person(String password)
     {
         super(password);
+    }
+
+    public Person(String email, String name, String surname, String password)
+    {
+        super(email, password);
         this.name = name;
         this.surname = surname;
     }

@@ -26,6 +26,20 @@ var PersonService = (function () {
             .map(this.extractData)
             .catch(this.handleError);
     };
+    PersonService.prototype.loginPerson = function (email, password) {
+        var headers = new http_1.Headers();
+        headers.append("Content-Type", 'application/x-www-form-urlencoded');
+        var requestoptions = new http_1.RequestOptions({
+            method: http_1.RequestMethod.Post,
+            url: '/service/login',
+            headers: headers,
+            body: 'email=' + email + '&password=' + password
+        });
+        alert('email=' + email + '&password=' + password);
+        return this.http.request(new http_1.Request(requestoptions))
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
     PersonService.prototype.registerPerson = function (data) {
         var headers = new http_1.Headers();
         headers.append("Content-Type", 'application/json');
@@ -45,7 +59,6 @@ var PersonService = (function () {
         return body;
     };
     PersonService.prototype.handleError = function (error) {
-        // In a real world app, we might use a remote logging infrastructure
         var errMsg = "Error";
         if (error instanceof http_1.Response) {
             var body = error.json() || '';

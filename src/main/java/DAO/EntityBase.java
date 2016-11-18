@@ -37,7 +37,12 @@ public class EntityBase
     public EntityBase(String password)
     {
         this();
-        this.password = password;
+        setPassword(password);
+    }
+    public EntityBase(String email, String password)
+    {
+        this(password);
+        this.email = email;
     }
 
     public String getEmail() { return email; }
@@ -57,9 +62,5 @@ public class EntityBase
         return password;
     }
 
-    public void setPassword(String password) throws NoSuchAlgorithmException
-    {
-        byte[] hash = MessageDigest.getInstance("SHA-256").digest(password.getBytes(StandardCharsets.UTF_8));
-        this.password = new String(hash);
-    }
+    public void setPassword(String password) { this.password = password; }
 }

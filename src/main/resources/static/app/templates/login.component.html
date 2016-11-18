@@ -1,0 +1,6 @@
+<label for="emailInput">Email</label>
+<input id="emailInput" type="email" [(ngModel)]="person.email" />
+<label for="passwordInput">Password</label>
+<input id="passwordInput" type="password" [(ngModel)]="person.password" />
+<input type="button" value="login" (click)="login()" />
+<span style="background-color: red;" *ngIf="errorMessage">{{errorMessage}}</span>

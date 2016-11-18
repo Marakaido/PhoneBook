@@ -17,7 +17,9 @@ var app_component_1 = require('./app.component');
 var people_component_1 = require('./people.component');
 var personRegistration_component_1 = require('./personRegistration.component');
 var person_service_1 = require('./services/person.service');
+var session_service_1 = require('./services/session.service');
 var personInfo_component_1 = require('./personInfo.component');
+var login_component_1 = require('./login.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -51,10 +53,12 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 people_component_1.PeopleComponent,
                 personRegistration_component_1.PersonRegistrationComponent,
-                personInfo_component_1.PersonInfoComponent
+                personInfo_component_1.PersonInfoComponent,
+                login_component_1.LoginComponent
             ],
             providers: [
-                person_service_1.PersonService
+                person_service_1.PersonService,
+                session_service_1.SessionService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

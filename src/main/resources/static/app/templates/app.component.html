@@ -2,5 +2,9 @@
 
 <a routerLink="/person-registration">Person registration</a>
 <a routerLink="/people">People</a>
+<a (click)="loginVisible=true">Login</a>
+
+<login *ngIf="loginVisible"></login>
+<a routerLink="/personal-page" *ngIf="session.getUser()">Personal Page</a>
 
 <router-outlet></router-outlet>

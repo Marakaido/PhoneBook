@@ -9,7 +9,7 @@ import java.sql.Date;
 import java.util.List;
 
 /**
- * Created by marakaido on 06.11.16.
+ * @author marakaido
  */
 public interface PersonRepository extends JpaRepository<Person, Long>
 {

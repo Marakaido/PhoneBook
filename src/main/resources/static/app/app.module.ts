@@ -8,7 +8,9 @@ import { AppComponent }   from './app.component';
 import { PeopleComponent } from './people.component';
 import { PersonRegistrationComponent } from './personRegistration.component'
 import { PersonService } from './services/person.service';
+import { SessionService } from './services/session.service';
 import { PersonInfoComponent } from './personInfo.component';
+import { LoginComponent } from './login.component';
 
 @NgModule({
   imports:      [ 
@@ -39,10 +41,12 @@ import { PersonInfoComponent } from './personInfo.component';
     AppComponent,
     PeopleComponent,
     PersonRegistrationComponent,
-    PersonInfoComponent
+    PersonInfoComponent,
+    LoginComponent
   ],
   providers: [
-    PersonService
+    PersonService,
+    SessionService
   ],
   bootstrap:    [ AppComponent ]
 })

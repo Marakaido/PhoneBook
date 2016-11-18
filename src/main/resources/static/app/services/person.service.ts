@@ -23,6 +23,21 @@ export class PersonService {
                     .catch(this.handleError);
     }
 
+    loginPerson(email: string, password: string): Observable<Person> {
+        var headers = new Headers();
+        headers.append("Content-Type", 'application/x-www-form-urlencoded');
+        var requestoptions = new RequestOptions({
+            method: RequestMethod.Post,
+            url: '/service/login',
+            headers: headers,
+            body: 'email=' + email + '&password=' + password
+        });
+        alert('email=' + email + '&password=' + password);
+        return this.http.request(new Request(requestoptions))
+        .map(this.extractData)
+        .catch(this.handleError);
+    }
+
     registerPerson(data:Person): Observable<string> {
         var headers = new Headers();
         headers.append("Content-Type", 'application/json');
@@ -44,7 +59,6 @@ export class PersonService {
     }
 
     private handleError (error: Response | any) {
-        // In a real world app, we might use a remote logging infrastructure
         let errMsg = "Error";
         if (error instanceof Response) {
             const body = error.json() || '';

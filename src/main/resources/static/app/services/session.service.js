@@ -9,21 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var session_service_1 = require('./services/session.service');
-var AppComponent = (function () {
-    function AppComponent(session) {
-        this.session = session;
-        this.loginVisible = false;
+var SessionService = (function () {
+    function SessionService() {
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'phonebook',
-            templateUrl: './templates/app.component.html'
-        }), 
-        __metadata('design:paramtypes', [session_service_1.SessionService])
-    ], AppComponent);
-    return AppComponent;
+    SessionService.prototype.getUser = function () {
+        return this.user;
+    };
+    SessionService.prototype.setUser = function (user) {
+        this.user = user;
+    };
+    SessionService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], SessionService);
+    return SessionService;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.SessionService = SessionService;
+//# sourceMappingURL=session.service.js.map
