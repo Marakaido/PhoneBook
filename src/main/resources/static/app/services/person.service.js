@@ -50,7 +50,7 @@ var PersonService = (function () {
             body: JSON.stringify(data)
         });
         return this.http.request(new http_1.Request(requestoptions))
-            .map(function (response) { return response; })
+            .map(this.extractData)
             .catch(this.handleError);
     };
     PersonService.prototype.extractData = function (res) {

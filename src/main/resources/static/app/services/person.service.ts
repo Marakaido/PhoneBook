@@ -48,7 +48,7 @@ export class PersonService {
             body: JSON.stringify(data)
         });
         return this.http.request(new Request(requestoptions))
-        .map(response => response)
+        .map(this.extractData)
         .catch(this.handleError);
     }
 

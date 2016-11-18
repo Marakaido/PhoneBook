@@ -47,21 +47,14 @@ public class Controller
 
     @RequestMapping(path = "service/register-person",
                     method = RequestMethod.POST,
-                    consumes="application/json",
-                    produces="text/plain")
+                    consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public String registerPerson(@RequestBody Person person)
+    public Person registerPerson(@RequestBody Person person)
     {
-        try
-        {
-            person = new Person(person.getEmail(), person.getName(), person.getSurname(), person.getPassword());
-            personRepository.saveAndFlush(person);
-            return "{message:'Person registered'}";
-        }
-        catch(Exception e)
-        {
-            return "{message:'Failed to register'}";
-        }
+        person = new Person(person.getEmail(), person.getName(), person.getSurname(), person.getPassword());
+        if (personRepository.getByEmail(person.getEmail()) == null &&
+            personRepository.saveAndFlush(person) != null) return person;
+        else throw new IllegalArgumentException("Registration failed, user with this id already exists");
     }
 
     @ExceptionHandler(Exception.class)

@@ -9,17 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var common_1 = require('@angular/common');
 var Person_1 = require('./entities/Person');
 var person_service_1 = require('./services/person.service');
+var session_service_1 = require('./services/session.service');
 var PersonRegistrationComponent = (function () {
-    function PersonRegistrationComponent(personService) {
+    function PersonRegistrationComponent(personService, session, router, location) {
         this.personService = personService;
+        this.session = session;
+        this.router = router;
+        this.location = location;
         this.person = new Person_1.Person();
     }
     PersonRegistrationComponent.prototype.onSubmit = function () {
         var _this = this;
         alert(JSON.stringify(this.person));
-        this.personService.registerPerson(this.person).subscribe(function (response) { return _this.responseMessage = response; }, function (error) { return _this.responseMessage = error; });
+        this.personService.registerPerson(this.person).subscribe(function (response) { return _this.person = response; }, function (error) { return _this.responseMessage = error; }, function () { return _this.completeRegistration(); });
+    };
+    PersonRegistrationComponent.prototype.completeRegistration = function () {
+        this.session.setUser(this.person);
+        this.router.navigateByUrl("/personal-page");
     };
     PersonRegistrationComponent = __decorate([
         core_1.Component({
@@ -27,7 +37,7 @@ var PersonRegistrationComponent = (function () {
             selector: 'person-registration',
             templateUrl: './templates/person-registration.component.html'
         }), 
-        __metadata('design:paramtypes', [person_service_1.PersonService])
+        __metadata('design:paramtypes', [person_service_1.PersonService, session_service_1.SessionService, router_1.Router, common_1.Location])
     ], PersonRegistrationComponent);
     return PersonRegistrationComponent;
 }());
