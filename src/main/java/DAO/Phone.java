@@ -1,15 +1,21 @@
 package DAO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity(name = "phones")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer"})
 public class Phone
 {
     @Id
     @Column(name = "number", nullable = false, length = 15)
     private String number;
 
-    @ManyToOne(optional=false)
+    @Column(name = "comment")
+    private String comment;
+
+    @ManyToOne(optional=false, fetch = FetchType.EAGER)
     private EntityBase entity;
 
     public Phone() {}
@@ -38,5 +44,15 @@ public class Phone
     public void setEntity(EntityBase entity)
     {
         this.entity = entity;
+    }
+
+    public String getComment()
+    {
+        return comment;
+    }
+
+    public void setComment(String comment)
+    {
+        this.comment = comment;
     }
 }

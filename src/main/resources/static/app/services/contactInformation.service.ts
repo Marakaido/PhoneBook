@@ -9,44 +9,25 @@ import { Person } from '../entities/Person';
 import { Phone } from '../entities/Phone';
 
 @Injectable()
-export class PersonService {
+export class ContactInformationService {
     constructor (private http: Http) {}
     
-    getPeople(page: number, count: number): Observable<Person[]> {
-        return this.http.get('/service/people-list?' + 'page=' + page + '&count=' + count)
+    getPhones(email: string): Observable<Phone[]>
+    {
+        return this.http.get('service/phones/' + email + '/')
                     .map(this.extractData)
                     .catch(this.handleError);
     }
 
-    getPerson(email: string): Observable<Person> {
-        return this.http.get('/service/person/' + email + '/')
-                    .map(this.extractData)
-                    .catch(this.handleError);
-    }
-
-    loginPerson(email: string, password: string): Observable<Person> {
-        var headers = new Headers();
-        headers.append("Content-Type", 'application/x-www-form-urlencoded');
-        var requestoptions = new RequestOptions({
-            method: RequestMethod.Post,
-            url: '/service/login',
-            headers: headers,
-            body: 'email=' + email + '&password=' + password
-        });
-        alert('email=' + email + '&password=' + password);
-        return this.http.request(new Request(requestoptions))
-        .map(this.extractData)
-        .catch(this.handleError);
-    }
-
-    registerPerson(data:Person): Observable<Person> {
+    addPhone(phone: Phone): Observable<string>
+    {
         var headers = new Headers();
         headers.append("Content-Type", 'application/json');
         var requestoptions = new RequestOptions({
             method: RequestMethod.Post,
-            url: '/service/register-person',
+            url: '/service/add-phone',
             headers: headers,
-            body: JSON.stringify(data)
+            body: JSON.stringify(phone)
         });
         return this.http.request(new Request(requestoptions))
         .map(this.extractData)

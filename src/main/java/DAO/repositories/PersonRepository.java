@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author marakaido
  */
-public interface PersonRepository extends JpaRepository<Person, Long>
+public interface PersonRepository extends JpaRepository<Person, String>
 {
     List<Person> getByName(String name);
 

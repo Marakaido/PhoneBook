@@ -11,17 +11,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var common_1 = require('@angular/common');
+var Phone_1 = require('./entities/Phone');
 var person_service_1 = require('./services/person.service');
 var session_service_1 = require('./services/session.service');
+var contactInformation_service_1 = require('./services/contactInformation.service');
 var PersonalPageComponent = (function () {
-    function PersonalPageComponent(personService, session, route, location) {
+    function PersonalPageComponent(personService, contactInformationService, session, route, location) {
         this.personService = personService;
+        this.contactInformationService = contactInformationService;
         this.session = session;
         this.route = route;
         this.location = location;
+        this.newPhones = new Array();
     }
     PersonalPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.person = this.session.getUser();
+        this.contactInformationService.getPhones(this.person.email).subscribe(function (response) { return _this.phones = response; }, function (error) { return _this.errorMessage = error; });
+    };
+    PersonalPageComponent.prototype.addNewPhoneInput = function () {
+        var phone = new Phone_1.Phone();
+        phone.entity = this.session.getUser();
+        this.newPhones.push(phone);
+    };
+    PersonalPageComponent.prototype.saveNewPhones = function () {
+        var _this = this;
+        this.newPhones.forEach(function (phone) { return _this.contactInformationService.addPhone(phone).subscribe(function (response) { return alert("Phone " + phone.number + " added"); }, function (error) { return alert(error); }); });
     };
     PersonalPageComponent.prototype.goBack = function () {
         this.location.back();
@@ -32,7 +47,7 @@ var PersonalPageComponent = (function () {
             selector: 'personal-page',
             templateUrl: './templates/personal-page.component.html'
         }), 
-        __metadata('design:paramtypes', [person_service_1.PersonService, session_service_1.SessionService, router_1.ActivatedRoute, common_1.Location])
+        __metadata('design:paramtypes', [person_service_1.PersonService, contactInformation_service_1.ContactInformationService, session_service_1.SessionService, router_1.ActivatedRoute, common_1.Location])
     ], PersonalPageComponent);
     return PersonalPageComponent;
 }());

@@ -1,6 +1,7 @@
 package DAO;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "people")
 public class Person extends EntityBase

@@ -1,9 +1,7 @@
-export class Person
+import { EntityBase } from './EntityBase';
+
+export class Person extends EntityBase
 {
-    email: string;
-    creationDate: string;
-    modificationDate: string;
-    password: string;
     name: string;
     surname: string;
 }

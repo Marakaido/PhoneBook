@@ -18,6 +18,7 @@ var people_component_1 = require('./people.component');
 var personRegistration_component_1 = require('./personRegistration.component');
 var person_service_1 = require('./services/person.service');
 var session_service_1 = require('./services/session.service');
+var contactInformation_service_1 = require('./services/contactInformation.service');
 var personInfo_component_1 = require('./personInfo.component');
 var login_component_1 = require('./login.component');
 var personalPage_component_1 = require('./personalPage.component');
@@ -64,7 +65,8 @@ var AppModule = (function () {
             ],
             providers: [
                 person_service_1.PersonService,
-                session_service_1.SessionService
+                session_service_1.SessionService,
+                contactInformation_service_1.ContactInformationService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

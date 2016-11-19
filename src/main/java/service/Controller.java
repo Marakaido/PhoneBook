@@ -4,7 +4,9 @@ import java.sql.Date;
 import java.util.List;
 
 import DAO.Person;
+import DAO.Phone;
 import DAO.repositories.PersonRepository;
+import DAO.repositories.PhoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,8 @@ public class Controller
 {
     @Autowired
     private PersonRepository personRepository;
+    @Autowired
+    private PhoneRepository phoneRepository;
 
     @RequestMapping(path = "service/people-list")
     public List<Person> getListOfPeople(@RequestParam(value="page", defaultValue="0") int page,
@@ -45,6 +49,21 @@ public class Controller
         return person;
     }
 
+    @RequestMapping(path = "service/phones/{email}/")
+    public List<Phone> getPhones(@PathVariable String email)
+    {
+        Person person = personRepository.getOne(email);
+        if(person != null)
+        {
+            List<Phone> phones = phoneRepository.getByEntity(person);
+            for(Phone phone : phones) phone.setEntity(null);
+            if(phones.size() > 0)
+                return phones;
+            else throw new IllegalStateException("Person has no phones");
+        }
+        else throw new IllegalArgumentException("Person with this email is not registered");
+    }
+
     @RequestMapping(path = "service/register-person",
                     method = RequestMethod.POST,
                     consumes="application/json")
@@ -55,6 +74,21 @@ public class Controller
         if (personRepository.getByEmail(person.getEmail()) == null &&
             personRepository.saveAndFlush(person) != null) return person;
         else throw new IllegalArgumentException("Registration failed, user with this id already exists");
+    }
+
+    @RequestMapping(path = "service/add-phone",
+            method = RequestMethod.POST,
+            consumes="application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String addPhone(@RequestBody Phone phone)
+    {
+        if(personRepository.exists(phone.getEntity().getEmail()) &&
+            !phoneRepository.exists(phone.getNumber()) &&
+            phoneRepository.saveAndFlush(phone) != null)
+        {
+            return "Phone successfully added";
+        }
+        else throw new IllegalArgumentException("Failed to add phone");
     }
 
     @ExceptionHandler(Exception.class)

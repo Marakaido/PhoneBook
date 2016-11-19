@@ -9,6 +9,7 @@ import { PeopleComponent } from './people.component';
 import { PersonRegistrationComponent } from './personRegistration.component'
 import { PersonService } from './services/person.service';
 import { SessionService } from './services/session.service';
+import { ContactInformationService } from './services/contactInformation.service';
 import { PersonInfoComponent } from './personInfo.component';
 import { LoginComponent } from './login.component';
 import { PersonalPageComponent } from './personalPage.component';
@@ -52,7 +53,8 @@ import { PersonalPageComponent } from './personalPage.component';
   ],
   providers: [
     PersonService,
-    SessionService
+    SessionService,
+    ContactInformationService
   ],
   bootstrap:    [ AppComponent ]
 })
