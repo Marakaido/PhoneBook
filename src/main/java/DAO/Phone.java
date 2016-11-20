@@ -8,19 +8,10 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import javax.persistence.*;
 
 @Entity(name = "phones")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer"})
-public class Phone
+public class Phone extends ContactInformation
 {
-    @Id
-    @Column(name = "number", nullable = false, length = 15)
+    @Column(name = "number", nullable = false, unique = true, length = 15)
     private String number;
-
-    @Column(name = "comment")
-    private String comment;
-
-    @JsonIgnore
-    @ManyToOne(optional=false, fetch = FetchType.EAGER)
-    private EntityBase entity;
 
     public Phone() {}
 
@@ -38,39 +29,5 @@ public class Phone
     public void setNumber(String number)
     {
         this.number = number;
-    }
-
-    public EntityBase getEntity()
-    {
-        return entity;
-    }
-
-    public void setEntity(EntityBase entity)
-    {
-        this.entity = entity;
-    }
-
-    @JsonProperty(value = "entity")
-    public String getEntityEmail() { return entity != null ? entity.getEmail() : null; }
-
-    @JsonProperty(value = "entity")
-    public void setEntityEmail(String email)
-    {
-        if(entity != null) entity.setEmail(email);
-        else
-        {
-            entity = new EntityBase();
-            entity.setEmail(email);
-        }
-    }
-
-    public String getComment()
-    {
-        return comment;
-    }
-
-    public void setComment(String comment)
-    {
-        this.comment = comment;
     }
 }

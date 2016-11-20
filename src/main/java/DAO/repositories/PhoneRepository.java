@@ -13,7 +13,9 @@ import java.util.List;
 /**
  * @author marakaido
  */
-public interface PhoneRepository extends JpaRepository<Phone, String>
+public interface PhoneRepository extends JpaRepository<Phone, Long>
 {
     List<Phone> getByEntity(EntityBase entity);
+
+    Phone getByNumber(String number);
 }

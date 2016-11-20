@@ -28,9 +28,9 @@ public class PhoneController
     @ResponseStatus(HttpStatus.CREATED)
     public String addPhone(@RequestBody Phone phone)
     {
-        if(personRepository.exists(phone.getEntity().getEmail()) &&
-                !phoneRepository.exists(phone.getNumber()) &&
-                phoneRepository.saveAndFlush(phone) != null)
+        if (personRepository.exists(phone.getEntity().getEmail()) &&
+            phoneRepository.getByNumber(phone.getNumber()) == null &&
+            phoneRepository.saveAndFlush(phone) != null)
         {
             return "Phone successfully added";
         }
@@ -41,9 +41,10 @@ public class PhoneController
     @ResponseStatus(HttpStatus.OK)
     public String removePhone(@PathVariable String number)
     {
-        if(phoneRepository.exists(number))
+        Phone phone = phoneRepository.getByNumber(number);
+        if(phone != null)
         {
-            phoneRepository.delete(number);
+            phoneRepository.delete(phone);
             return "Phone deleted successfully";
         }
         else throw new IllegalArgumentException("Phone does not exist");

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by marakaido on 06.11.16.
  */
-public interface CompanyRepository extends JpaRepository<Company, Long>
+public interface CompanyRepository extends JpaRepository<Company, String>
 {
     Company getByName(String name);
 

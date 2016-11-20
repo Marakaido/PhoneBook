@@ -30,7 +30,7 @@ public class UserController
     @RequestMapping(path = "service/person/{email}/")
     public Person getPerson(@PathVariable String email)
     {
-        return personRepository.getByEmail(email);
+        return personRepository.findOne(email);
     }
 
     @RequestMapping(path = "service/login")
@@ -39,7 +39,7 @@ public class UserController
                               @RequestParam(value="password") String password) throws Exception
     {
         Person personData = new Person(password);
-        Person person = personRepository.getByEmail(email);
+        Person person = personRepository.findOne(email);
         if(person == null || !person.getPassword().equals(personData.getPassword()))
         {
             throw new Exception("Authentication failed");
@@ -48,13 +48,13 @@ public class UserController
     }
 
     @RequestMapping(path = "service/register-person",
-            method = RequestMethod.POST,
-            consumes="application/json")
+                    method = RequestMethod.POST,
+                    consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Person registerPerson(@RequestBody Person person)
     {
         person = new Person(person.getEmail(), person.getName(), person.getSurname(), person.getPassword());
-        if (personRepository.getByEmail(person.getEmail()) == null &&
+        if (personRepository.findOne(person.getEmail()) == null &&
                 personRepository.saveAndFlush(person) != null) return person;
         else throw new IllegalArgumentException("Registration failed, user with this id already exists");
     }

@@ -3,14 +3,10 @@ package DAO;
 import javax.persistence.*;
 
 @Entity(name = "emails")
-public class Email
+public class Email extends ContactInformation
 {
-    @Id
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
-
-    @ManyToOne(optional=false)
-    private EntityBase entity;
 
     public Email() {}
 
@@ -28,15 +24,5 @@ public class Email
     public void setEmail(String email)
     {
         this.email = email;
-    }
-
-    public EntityBase getEntity()
-    {
-        return entity;
-    }
-
-    public void setEntity(EntityBase entity)
-    {
-        this.entity = entity;
     }
 }
