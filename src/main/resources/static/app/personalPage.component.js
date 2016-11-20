@@ -31,7 +31,7 @@ var PersonalPageComponent = (function () {
     };
     PersonalPageComponent.prototype.addNewPhoneInput = function () {
         var phone = new Phone_1.Phone();
-        phone.entity = this.session.getUser();
+        phone.entity = this.session.getUser().email;
         this.newPhones.push(phone);
     };
     PersonalPageComponent.prototype.saveNewPhones = function () {

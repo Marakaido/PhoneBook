@@ -4,5 +4,5 @@ export class Phone
 {
     number: string;
     comment: string;
-    entity: EntityBase;
+    entity: string;
 }

@@ -38,7 +38,7 @@ export class PersonalPageComponent implements OnInit
     addNewPhoneInput(): void
     {
         let phone: Phone = new Phone();
-        phone.entity = this.session.getUser();
+        phone.entity = this.session.getUser().email;
         
         this.newPhones.push(phone);
     }

@@ -56,7 +56,6 @@ public class Controller
         if(person != null)
         {
             List<Phone> phones = phoneRepository.getByEntity(person);
-            for(Phone phone : phones) phone.setEntity(null);
             if(phones.size() > 0)
                 return phones;
             else throw new IllegalStateException("Person has no phones");

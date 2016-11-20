@@ -1,6 +1,9 @@
 package DAO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import javax.persistence.*;
 
@@ -15,6 +18,7 @@ public class Phone
     @Column(name = "comment")
     private String comment;
 
+    @JsonIgnore
     @ManyToOne(optional=false, fetch = FetchType.EAGER)
     private EntityBase entity;
 
@@ -44,6 +48,20 @@ public class Phone
     public void setEntity(EntityBase entity)
     {
         this.entity = entity;
+    }
+
+    @JsonProperty(value = "entity")
+    public String getEntityEmail() { return entity != null ? entity.getEmail() : null; }
+
+    @JsonProperty(value = "entity")
+    public void setEntityEmail(String email)
+    {
+        if(entity != null) entity.setEmail(email);
+        else
+        {
+            entity = new EntityBase();
+            entity.setEmail(email);
+        }
     }
 
     public String getComment()
