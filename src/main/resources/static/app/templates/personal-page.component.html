@@ -3,28 +3,32 @@
 <p *ngIf="errorMessage">{{errorMessage}}</p>
 
 <div *ngIf="person">
-<label>Name: </label><input type="text" [(ngModel)]="person.name"><br>
-<label>Surname: </label><input type="text" [(ngModel)]="person.surname"><br>
-<label>Profile created: </label><input type="text" [(ngModel)]="person.creationDate"><br>
-<label>Last modified: </label><input type="text" [(ngModel)]="person.modificationDate">
+    <label>Name: </label><input type="text" [(ngModel)]="person.name"><br>
+    <label>Surname: </label><input type="text" [(ngModel)]="person.surname"><br>
+    <label>Profile created: </label><input type="text" [(ngModel)]="person.creationDate"><br>
+    <label>Last modified: </label><input type="text" [(ngModel)]="person.modificationDate">
 
-<table>
-    <tr>
-        <th>Phone</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td colspan="2"><button type="button" (click)="addNewPhoneInput()">Add new</button></td>
-    </tr>
-    <tr *ngFor="let phone of phones">
-        <td>{{phone.number}}</td>
-        <td>{{phone.comment}}</td>
-    </tr>
-    <tr *ngFor="let phone of newPhones">
-        <td><input type="tel" [(ngModel)]="phone.number" placeholder="phone number" /></td>
-        <td><input type="tel" [(ngModel)]="phone.comment" placeholder="comment" /></td>
-    </tr>
-</table>
-<button type="button" (click)="saveNewPhones()">Save changes</button>
-
+    <h2>Phones</h2>
+    <button type="button" (click)="togglePhoneEditor()">Edit</button>
+    <table>
+        <tr>
+            <th>Phone</th>
+            <th>Description</th>
+        </tr>
+        <tr *ngFor="let phone of phones">
+            <td>{{phone.number}}</td>
+            <td>{{phone.comment}}</td>
+            <td *ngIf="editPhones"><button (click)="removePhone(phone)">Remove</button></td>
+        </tr>
+        <tr *ngFor="let phone of newPhones">
+            <td *ngIf="editPhones"><input type="tel" [(ngModel)]="phone.number" placeholder="phone number" /></td>
+            <td *ngIf="editPhones"><input type="tel" [(ngModel)]="phone.comment" placeholder="comment" /></td>
+        </tr>
+        <tr *ngIf="editPhones">
+            <td colspan="2"><button type="button" (click)="addNewPhoneInput()">Add new</button></td>
+        </tr>
+        <tr *ngIf="editPhones">
+            <td colspan="2"><button type="button" (click)="saveNewPhones()">Save changes</button></td>
+        </tr>
+    </table>
 </div>

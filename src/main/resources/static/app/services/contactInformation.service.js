@@ -18,8 +18,8 @@ var ContactInformationService = (function () {
     }
     ContactInformationService.prototype.getPhones = function (email) {
         return this.http.get('service/phones/' + email + '/')
-            .map(this.extractData)
-            .catch(this.handleError);
+            .map(function (response) { return response.json(); })
+            .catch(function (error) { return error; });
     };
     ContactInformationService.prototype.addPhone = function (phone) {
         var headers = new http_1.Headers();
@@ -31,26 +31,13 @@ var ContactInformationService = (function () {
             body: JSON.stringify(phone)
         });
         return this.http.request(new http_1.Request(requestoptions))
-            .map(this.extractData)
-            .catch(this.handleError);
+            .map(function (response) { return response; })
+            .catch(function (error) { return error; });
     };
-    ContactInformationService.prototype.extractData = function (res) {
-        var body = res.json();
-        console.log(res.json());
-        return body;
-    };
-    ContactInformationService.prototype.handleError = function (error) {
-        var errMsg = "Error";
-        if (error instanceof http_1.Response) {
-            var body = error.json() || '';
-            var err = body.error || JSON.stringify(body);
-            errMsg = error.status + " - " + (error.statusText || '') + " " + err;
-        }
-        else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return null;
+    ContactInformationService.prototype.removePhone = function (phone) {
+        return this.http.get('service/phones/remove/' + phone.number + '/')
+            .map(function (response) { return response; })
+            .catch(function (error) { return error; });
     };
     ContactInformationService = __decorate([
         core_1.Injectable(), 

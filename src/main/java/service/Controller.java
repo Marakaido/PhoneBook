@@ -63,6 +63,18 @@ public class Controller
         else throw new IllegalArgumentException("Person with this email is not registered");
     }
 
+    @RequestMapping(path = "service/phones/remove/{number}/")
+    @ResponseStatus(HttpStatus.OK)
+    public String removePhone(@PathVariable String number)
+    {
+        if(phoneRepository.exists(number))
+        {
+            phoneRepository.delete(number);
+            return "Phone deleted successfully";
+        }
+        else throw new IllegalArgumentException("Phone does not exist");
+    }
+
     @RequestMapping(path = "service/register-person",
                     method = RequestMethod.POST,
                     consumes="application/json")

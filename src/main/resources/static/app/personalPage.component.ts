@@ -16,8 +16,12 @@ import { ContactInformationService } from './services/contactInformation.service
 export class PersonalPageComponent implements OnInit
 {
     person: Person;
+
     phones: Phone[];
     newPhones: Phone[] = new Array<Phone>();
+
+    editPhones: boolean = false;
+
     errorMessage: string;
 
     constructor(
@@ -35,6 +39,11 @@ export class PersonalPageComponent implements OnInit
             error => this.errorMessage = error);
     }
 
+    togglePhoneEditor(): void
+    {
+        this.editPhones = !this.editPhones;
+    }
+
     addNewPhoneInput(): void
     {
         let phone: Phone = new Phone();
@@ -46,9 +55,23 @@ export class PersonalPageComponent implements OnInit
     saveNewPhones(): void
     {
         this.newPhones.forEach(phone => this.contactInformationService.addPhone(phone).subscribe(
-            response => alert("Phone " + phone.number + " added"),
-            error => alert(error)
+            response => alert(response),
+            error => alert(error),
+            () => 
+            {
+                this.newPhones.splice(this.newPhones.indexOf(phone), 1);
+                this.phones.push(phone);
+            }
         ));
+    }
+
+    removePhone(phone: Phone): void
+    {
+        this.contactInformationService.removePhone(phone).subscribe(
+            response => console.log(response),
+            error => this.errorMessage = error,
+            () => this.phones.splice(this.phones.indexOf(phone), 1)
+        );
     }
 
     goBack(): void {

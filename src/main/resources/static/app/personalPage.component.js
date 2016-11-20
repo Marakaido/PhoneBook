@@ -23,11 +23,15 @@ var PersonalPageComponent = (function () {
         this.route = route;
         this.location = location;
         this.newPhones = new Array();
+        this.editPhones = false;
     }
     PersonalPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.person = this.session.getUser();
         this.contactInformationService.getPhones(this.person.email).subscribe(function (response) { return _this.phones = response; }, function (error) { return _this.errorMessage = error; });
+    };
+    PersonalPageComponent.prototype.togglePhoneEditor = function () {
+        this.editPhones = !this.editPhones;
     };
     PersonalPageComponent.prototype.addNewPhoneInput = function () {
         var phone = new Phone_1.Phone();
@@ -36,7 +40,14 @@ var PersonalPageComponent = (function () {
     };
     PersonalPageComponent.prototype.saveNewPhones = function () {
         var _this = this;
-        this.newPhones.forEach(function (phone) { return _this.contactInformationService.addPhone(phone).subscribe(function (response) { return alert("Phone " + phone.number + " added"); }, function (error) { return alert(error); }); });
+        this.newPhones.forEach(function (phone) { return _this.contactInformationService.addPhone(phone).subscribe(function (response) { return alert(response); }, function (error) { return alert(error); }, function () {
+            _this.newPhones.splice(_this.newPhones.indexOf(phone), 1);
+            _this.phones.push(phone);
+        }); });
+    };
+    PersonalPageComponent.prototype.removePhone = function (phone) {
+        var _this = this;
+        this.contactInformationService.removePhone(phone).subscribe(function (response) { return console.log(response); }, function (error) { return _this.errorMessage = error; }, function () { return _this.phones.splice(_this.phones.indexOf(phone), 1); });
     };
     PersonalPageComponent.prototype.goBack = function () {
         this.location.back();

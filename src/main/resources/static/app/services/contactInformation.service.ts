@@ -15,8 +15,8 @@ export class ContactInformationService {
     getPhones(email: string): Observable<Phone[]>
     {
         return this.http.get('service/phones/' + email + '/')
-                    .map(this.extractData)
-                    .catch(this.handleError);
+                    .map(response => response.json())
+                    .catch(error => error);
     }
 
     addPhone(phone: Phone): Observable<string>
@@ -30,26 +30,14 @@ export class ContactInformationService {
             body: JSON.stringify(phone)
         });
         return this.http.request(new Request(requestoptions))
-        .map(this.extractData)
-        .catch(this.handleError);
+        .map(response => response)
+        .catch(error => error);
     }
 
-    private extractData(res: Response) {
-        let body = res.json();
-        console.log(res.json());
-        return body;
-    }
-
-    private handleError (error: Response | any) {
-        let errMsg = "Error";
-        if (error instanceof Response) {
-            const body = error.json() || '';
-            const err = body.error || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-        } else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return null;
+    removePhone(phone: Phone): Observable<string>
+    {
+        return this.http.get('service/phones/remove/' + phone.number + '/')
+                    .map(response => response)
+                    .catch(error => error);
     }
 }
