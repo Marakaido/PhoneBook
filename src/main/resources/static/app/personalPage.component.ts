@@ -3,7 +3,7 @@ import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 
 import { Person } from './entities/Person';
-import { Phone } from './entities/Phone';
+import { Phone } from './entities/ContactInformation';
 import { PersonService } from './services/person.service';
 import { SessionService } from './services/session.service';
 import { ContactInformationService } from './services/contactInformation.service';

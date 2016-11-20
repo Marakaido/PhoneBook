@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var common_1 = require('@angular/common');
-var Phone_1 = require('./entities/Phone');
+var ContactInformation_1 = require('./entities/ContactInformation');
 var person_service_1 = require('./services/person.service');
 var session_service_1 = require('./services/session.service');
 var contactInformation_service_1 = require('./services/contactInformation.service');
@@ -34,7 +34,7 @@ var PersonalPageComponent = (function () {
         this.editPhones = !this.editPhones;
     };
     PersonalPageComponent.prototype.addNewPhoneInput = function () {
-        var phone = new Phone_1.Phone();
+        var phone = new ContactInformation_1.Phone();
         phone.entity = this.session.getUser().email;
         this.newPhones.push(phone);
     };

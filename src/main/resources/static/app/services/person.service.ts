@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Person } from '../entities/Person';
-import { Phone } from '../entities/Phone';
+import { Phone } from '../entities/ContactInformation';
 
 @Injectable()
 export class PersonService {
