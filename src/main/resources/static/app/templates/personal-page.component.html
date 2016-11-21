@@ -9,7 +9,7 @@
     <label>Last modified: </label><input type="text" [(ngModel)]="person.modificationDate">
 
     <h2>Phones</h2>
-    <button type="button" (click)="togglePhoneEditor()">Edit</button>
+    <button type="button" (click)="editPhones = !editPhones">Edit</button>
     <table>
         <tr>
             <th>Phone</th>
@@ -31,4 +31,53 @@
             <td colspan="2"><button type="button" (click)="saveNewPhones()">Save changes</button></td>
         </tr>
     </table>
+
+    <h2>Emails</h2>
+    <button type="button" (click)="editEmails = !editEmails">Edit</button>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Description</th>
+        </tr>
+        <tr *ngFor="let email of emails">
+            <td>{{email.email}}</td>
+            <td>{{email.comment}}</td>
+            <td *ngIf="editEmails"><button (click)="removeEmail(email)">Remove</button></td>
+        </tr>
+        <tr *ngFor="let email of newEmails">
+            <td *ngIf="editEmails"><input type="email" [(ngModel)]="email.email" placeholder="email" /></td>
+            <td *ngIf="editEmails"><input type="email" [(ngModel)]="email.comment" placeholder="comment" /></td>
+        </tr>
+        <tr *ngIf="editEmails">
+            <td colspan="2"><button type="button" (click)="addNewEmailInput()">Add new</button></td>
+        </tr>
+        <tr *ngIf="editEmails">
+            <td colspan="2"><button type="button" (click)="saveNewEmails()">Save changes</button></td>
+        </tr>
+    </table>
+
+    <h2>Addresses</h2>
+    <button type="button" (click)="editAddresses = !editAddresses">Edit</button>
+    <table>
+        <tr>
+            <th>Address</th>
+            <th>Description</th>
+        </tr>
+        <tr *ngFor="let address of addresses">
+            <td>{{address.address}}</td>
+            <td>{{address.comment}}</td>
+            <td *ngIf="editAddresses"><button (click)="removeAddress(address)">Remove</button></td>
+        </tr>
+        <tr *ngFor="let address of newAddresses">
+            <td *ngIf="editAddresses"><input type="address" [(ngModel)]="address.address" placeholder="address" /></td>
+            <td *ngIf="editAddresses"><input type="address" [(ngModel)]="address.comment" placeholder="comment" /></td>
+        </tr>
+        <tr *ngIf="editAddresses">
+            <td colspan="2"><button type="button" (click)="addNewAddressInput()">Add new</button></td>
+        </tr>
+        <tr *ngIf="editAddresses">
+            <td colspan="2"><button type="button" (click)="saveNewAddresses()">Save changes</button></td>
+        </tr>
+    </table>
+
 </div>

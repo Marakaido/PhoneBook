@@ -8,4 +8,4 @@ node_modules
 src/main/resources/static/app/*.js
 src/main/resources/static/app/*.map
 src/main/resources/static/app/**/*.js
-./src/main/resources/static/app/**/*.map
+src/main/resources/static/app/**/*.map
