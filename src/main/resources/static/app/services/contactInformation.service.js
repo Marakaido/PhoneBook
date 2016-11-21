@@ -12,59 +12,56 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
+var ContactInformation_1 = require('../entities/ContactInformation');
 var ContactInformationService = (function () {
     function ContactInformationService(http) {
         this.http = http;
     }
     ContactInformationService.prototype.getPhones = function (email) {
-        return this.getAllContactInforamationByUserEmail(email, "phones");
+        return this.getAllContactInforamationByUserEmail(email, "phone");
     };
     ContactInformationService.prototype.getEmails = function (email) {
-        return this.getAllContactInforamationByUserEmail(email, "emails");
+        return this.getAllContactInforamationByUserEmail(email, "email");
     };
     ContactInformationService.prototype.getAddresses = function (email) {
-        return this.getAllContactInforamationByUserEmail(email, "addresses");
+        return this.getAllContactInforamationByUserEmail(email, "address");
     };
-    ContactInformationService.prototype.addPhone = function (phone) {
-        return this.addContactInformation(phone, "add-phone");
-    };
-    ContactInformationService.prototype.addEmail = function (email) {
-        return this.addContactInformation(email, "add-email");
-    };
-    ContactInformationService.prototype.addAddress = function (address) {
-        return this.addContactInformation(address, "add-address");
-    };
-    ContactInformationService.prototype.removePhone = function (phone) {
-        return this.removeContactInformation('phones/remove/' + phone.number);
-    };
-    ContactInformationService.prototype.removeEmail = function (email) {
-        return this.removeContactInformation('phones/remove/' + email.email);
-    };
-    ContactInformationService.prototype.removeAddress = function (address) {
-        return this.removeContactInformation('phones/remove/' + address.address);
-    };
-    ContactInformationService.prototype.getAllContactInforamationByUserEmail = function (email, path) {
-        return this.http.get('service/' + path + '/' + email + '/')
-            .map(function (response) { return response.json(); })
+    ContactInformationService.prototype.add = function (contactInformation) {
+        var request = this.formRequest(contactInformation, http_1.RequestMethod.Post);
+        return this.http.request(request)
+            .map(function (response) { return response.text; })
             .catch(function (error) { return error; });
     };
-    ContactInformationService.prototype.addContactInformation = function (contactInformation, path) {
+    ContactInformationService.prototype.remove = function (contactInformation) {
+        var request = this.formRequest(contactInformation, http_1.RequestMethod.Delete);
+        return this.http.request(request)
+            .map(function (response) { return response.text; })
+            .catch(function (error) { return error; });
+    };
+    ContactInformationService.prototype.formRequest = function (contactInformation, method) {
+        alert(JSON.stringify(contactInformation));
         var headers = new http_1.Headers();
         headers.append("Content-Type", 'application/json');
-        var requestoptions = new http_1.RequestOptions({
-            method: http_1.RequestMethod.Post,
-            url: '/service/' + path,
+        var requestOptions = new http_1.RequestOptions({
+            method: method,
+            url: 'service/contact-information',
             headers: headers,
             body: JSON.stringify(contactInformation)
         });
-        return this.http.request(new http_1.Request(requestoptions))
-            .map(function (response) { return response; })
+        return new http_1.Request(requestOptions);
+    };
+    ContactInformationService.prototype.getAllContactInforamationByUserEmail = function (email, path) {
+        return this.http.get('service/contact-information/' + path + '/' + email + '/')
+            .map(function (response) { return response.json(); })
             .catch(function (error) { return error; });
     };
-    ContactInformationService.prototype.removeContactInformation = function (path) {
-        return this.http.get('service/' + path + '/')
-            .map(function (response) { return response; })
-            .catch(function (error) { return error; });
+    ContactInformationService.prototype.determineTypeProperty = function (instance) {
+        if (instance instanceof ContactInformation_1.Phone)
+            return "phone";
+        else if (instance instanceof ContactInformation_1.Email)
+            return "email";
+        else if (instance instanceof ContactInformation_1.Address)
+            return "address";
     };
     ContactInformationService = __decorate([
         core_1.Injectable(), 

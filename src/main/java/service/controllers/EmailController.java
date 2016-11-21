@@ -24,11 +24,7 @@ public class EmailController
     @Autowired
     private PersonRepository personRepository;
 
-    @RequestMapping(path = "service/add-email",
-                    method = RequestMethod.POST,
-                    consumes="application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String add(@RequestBody Email email)
+    public String add(Email email)
     {
         if (personRepository.exists(email.getEntity().getEmail()) &&
             emailRepository.getByEmail(email.getEmail()) == null &&
@@ -39,11 +35,9 @@ public class EmailController
         else throw new IllegalArgumentException("Failed to add email");
     }
 
-    @RequestMapping(path = "service/emails/remove/{emailValue}/")
-    @ResponseStatus(HttpStatus.OK)
-    public String remove(@PathVariable String emailValue)
+    public String remove(Email emailValue)
     {
-        Email email = emailRepository.getByEmail(emailValue);
+        Email email = emailRepository.getByEmail(emailValue.getEmail());
         if(email != null)
         {
             emailRepository.delete(email);
@@ -52,10 +46,11 @@ public class EmailController
         else throw new IllegalArgumentException("Email does not exist");
     }
 
-    @RequestMapping(path = "service/emails/{emailValue}/")
-    public List<Email> getPhones(@PathVariable String emailValue)
+    @RequestMapping(path = "service/contact-information/email/{personId}/",
+            method = RequestMethod.GET)
+    public List<Email> get(@PathVariable String personId)
     {
-        Person person = personRepository.getOne(emailValue);
+        Person person = personRepository.getOne(personId);
         if(person != null)
         {
             List<Email> emails = emailRepository.getByEntity(person);

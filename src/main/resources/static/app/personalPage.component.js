@@ -49,15 +49,15 @@ var PersonalPageComponent = (function () {
     };
     PersonalPageComponent.prototype.saveNewPhones = function () {
         var _this = this;
-        this.newPhones.forEach(function (phone) { return _this.contactInformationService.addPhone(phone).subscribe(function (response) { return _this.commitContactInformationAddition(_this.phones, _this.newPhones, phone); }, function (error) { return _this.handleError(error); }); });
+        this.newPhones.forEach(function (phone) { return _this.contactInformationService.add(phone).subscribe(function (response) { return _this.commitContactInformationAddition(_this.phones, _this.newPhones, phone); }, function (error) { return _this.handleError(error); }); });
     };
     PersonalPageComponent.prototype.saveNewEmails = function () {
         var _this = this;
-        this.newEmails.forEach(function (email) { return _this.contactInformationService.addEmail(email).subscribe(function (response) { return _this.commitContactInformationAddition(_this.emails, _this.newEmails, email); }, function (error) { return _this.handleError(error); }); });
+        this.newEmails.forEach(function (email) { return _this.contactInformationService.add(email).subscribe(function (response) { return _this.commitContactInformationAddition(_this.emails, _this.newEmails, email); }, function (error) { return _this.handleError(error); }); });
     };
     PersonalPageComponent.prototype.saveNewAddresses = function () {
         var _this = this;
-        this.newAddresses.forEach(function (address) { return _this.contactInformationService.addAddress(address).subscribe(function (response) { return _this.commitContactInformationAddition(_this.addresses, _this.newAddresses, address); }, function (error) { return _this.handleError(error); }); });
+        this.newAddresses.forEach(function (address) { return _this.contactInformationService.add(address).subscribe(function (response) { return _this.commitContactInformationAddition(_this.addresses, _this.newAddresses, address); }, function (error) { return _this.handleError(error); }); });
     };
     PersonalPageComponent.prototype.commitContactInformationAddition = function (contacts, newContacts, instance) {
         newContacts.splice(newContacts.indexOf(instance), 1);
@@ -65,21 +65,21 @@ var PersonalPageComponent = (function () {
     };
     PersonalPageComponent.prototype.removePhone = function (phone) {
         var _this = this;
-        this.contactInformationService.removePhone(phone).subscribe(function (response) { return _this.commitContactInformationRemoval(_this.phones, phone); }, function (error) { return _this.handleError(error); });
+        this.contactInformationService.remove(phone).subscribe(function (response) { return _this.commitContactInformationRemoval(_this.phones, phone); }, function (error) { return _this.handleError(error); });
     };
     PersonalPageComponent.prototype.removeEmail = function (email) {
         var _this = this;
-        this.contactInformationService.removeEmail(email).subscribe(function (response) { return _this.commitContactInformationRemoval(_this.emails, email); }, function (error) { return _this.handleError(error); });
+        this.contactInformationService.remove(email).subscribe(function (response) { return _this.commitContactInformationRemoval(_this.emails, email); }, function (error) { return _this.handleError(error); });
     };
     PersonalPageComponent.prototype.removeAddress = function (address) {
         var _this = this;
-        this.contactInformationService.removeAddress(address).subscribe(function (response) { return _this.commitContactInformationRemoval(_this.addresses, address); }, function (error) { return _this.handleError(error); });
+        this.contactInformationService.remove(address).subscribe(function (response) { return _this.commitContactInformationRemoval(_this.addresses, address); }, function (error) { return _this.handleError(error); });
     };
     PersonalPageComponent.prototype.commitContactInformationRemoval = function (contacts, instance) {
         contacts.splice(contacts.indexOf(instance), 1);
     };
     PersonalPageComponent.prototype.handleError = function (error) {
-        alert("Error");
+        alert(error);
     };
     PersonalPageComponent.prototype.goBack = function () {
         this.location.back();

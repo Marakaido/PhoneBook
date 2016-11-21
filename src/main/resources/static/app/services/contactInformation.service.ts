@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Person } from '../entities/Person';
-import { Phone, Email, Address  } from '../entities/ContactInformation';
+import { ContactInformation, Phone, Email, Address } from '../entities/ContactInformation';
 
 @Injectable()
 export class ContactInformationService {
@@ -14,69 +14,61 @@ export class ContactInformationService {
     
     getPhones(email: string): Observable<Phone[]>
     {
-        return this.getAllContactInforamationByUserEmail<Phone[]>(email, "phones");
+        return this.getAllContactInforamationByUserEmail<Phone[]>(email, "phone");
     }
     getEmails(email: string): Observable<Email[]>
     {
-        return this.getAllContactInforamationByUserEmail<Email[]>(email, "emails");
+        return this.getAllContactInforamationByUserEmail<Email[]>(email, "email");
     }
     getAddresses(email: string): Observable<Address[]>
     {
-        return this.getAllContactInforamationByUserEmail<Address[]>(email, "addresses");
+        return this.getAllContactInforamationByUserEmail<Address[]>(email, "address");
     }
 
-    addPhone(phone: Phone): Observable<string>
+    add<T extends ContactInformation>(contactInformation: T): Observable<string>
     {
-        return this.addContactInformation<Phone>(phone, "add-phone");
-    }
-    addEmail(email: Email): Observable<string>
-    {
-        return this.addContactInformation<Email>(email, "add-email");
-    }
-    addAddress(address: Address): Observable<string>
-    {
-        return this.addContactInformation<Address>(address, "add-address");
+        var request : Request = this.formRequest(contactInformation, RequestMethod.Post);
+
+        return this.http.request(request)
+        .map(response => response.text)
+        .catch(error => error);
     }
 
-    removePhone(phone: Phone): Observable<string>
+    remove<T extends ContactInformation>(contactInformation: T): Observable<string>
     {
-        return this.removeContactInformation<Phone>('phones/remove/' + phone.number);
+        var request : Request = this.formRequest(contactInformation, RequestMethod.Delete);
+
+        return this.http.request(request)
+        .map(response => response.text)
+        .catch(error => error);
     }
-    removeEmail(email: Email): Observable<string>
+
+    private formRequest(contactInformation: ContactInformation, method: RequestMethod) : Request
     {
-        return this.removeContactInformation<Email>('phones/remove/' + email.email);
-    }
-    removeAddress(address: Address): Observable<string>
-    {
-        return this.removeContactInformation<Phone>('phones/remove/' + address.address);
+        alert(JSON.stringify(contactInformation));
+        var headers = new Headers();
+        headers.append("Content-Type", 'application/json');
+        var requestOptions: RequestOptions = new RequestOptions({
+            method: method,
+            url: 'service/contact-information',
+            headers: headers,
+            body: JSON.stringify(contactInformation)
+        });
+
+        return new Request(requestOptions);
     }
 
     private getAllContactInforamationByUserEmail<T>(email: string, path: string): Observable<T>
     {
-        return this.http.get('service/' + path + '/' + email + '/')
+        return this.http.get('service/contact-information/' + path + '/' + email + '/')
                     .map(response => response.json())
                     .catch(error => error);
     }
 
-    private addContactInformation<T>(contactInformation: T, path: string): Observable<string>
+    private determineTypeProperty<T>(instance: T): string
     {
-        var headers = new Headers();
-        headers.append("Content-Type", 'application/json');
-        var requestoptions = new RequestOptions({
-            method: RequestMethod.Post,
-            url: '/service/' + path,
-            headers: headers,
-            body: JSON.stringify(contactInformation)
-        });
-        return this.http.request(new Request(requestoptions))
-        .map(response => response)
-        .catch(error => error);
-    }
-
-    private removeContactInformation<T>(path: string): Observable<string>
-    {
-        return this.http.get('service/' + path + '/')
-                    .map(response => response)
-                    .catch(error => error);
+        if(instance instanceof Phone) return "phone";
+        else if(instance instanceof Email) return "email";
+        else if(instance instanceof Address) return "address";
     }
 }

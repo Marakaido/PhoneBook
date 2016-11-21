@@ -2,6 +2,8 @@ package DAO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 
@@ -11,6 +13,14 @@ import javax.persistence.*;
  */
 @Entity(name = "contacts")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Phone.class, name = "phone"),
+        @JsonSubTypes.Type(value = Email.class, name = "email"),
+        @JsonSubTypes.Type(value = Address.class, name = "address") })
 public class ContactInformation
 {
     @JsonIgnore

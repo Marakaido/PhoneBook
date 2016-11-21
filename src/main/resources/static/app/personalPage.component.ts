@@ -72,21 +72,21 @@ export class PersonalPageComponent implements OnInit
 
     saveNewPhones(): void
     {
-        this.newPhones.forEach(phone => this.contactInformationService.addPhone(phone).subscribe(
+        this.newPhones.forEach(phone => this.contactInformationService.add<Phone>(phone).subscribe(
             response => this.commitContactInformationAddition<Phone>(this.phones, this.newPhones, phone),
             error => this.handleError(error)
         ));
     }
     saveNewEmails(): void
     {
-        this.newEmails.forEach(email => this.contactInformationService.addEmail(email).subscribe(
+        this.newEmails.forEach(email => this.contactInformationService.add<Email>(email).subscribe(
             response => this.commitContactInformationAddition<Email>(this.emails, this.newEmails, email),
             error => this.handleError(error)
         ));
     }
     saveNewAddresses(): void
     {
-        this.newAddresses.forEach(address => this.contactInformationService.addAddress(address).subscribe(
+        this.newAddresses.forEach(address => this.contactInformationService.add<Address>(address).subscribe(
             response => this.commitContactInformationAddition<Address>(this.addresses, this.newAddresses, address),
             error => this.handleError(error)
         ));
@@ -99,21 +99,21 @@ export class PersonalPageComponent implements OnInit
 
     removePhone(phone: Phone): void
     {
-        this.contactInformationService.removePhone(phone).subscribe(
+        this.contactInformationService.remove<Phone>(phone).subscribe(
             response => this.commitContactInformationRemoval<Phone>(this.phones, phone),
             error => this.handleError(error)
         );
     }
     removeEmail(email: Email): void
     {
-        this.contactInformationService.removeEmail(email).subscribe(
+        this.contactInformationService.remove<Email>(email).subscribe(
             response => this.commitContactInformationRemoval<Email>(this.emails, email),
             error => this.handleError(error)
         );
     }
     removeAddress(address: Address): void
     {
-        this.contactInformationService.removeAddress(address).subscribe(
+        this.contactInformationService.remove<Address>(address).subscribe(
             response => this.commitContactInformationRemoval<Address>(this.addresses, address),
             error => this.handleError(error)
         );
@@ -125,7 +125,7 @@ export class PersonalPageComponent implements OnInit
 
     private handleError(error)
     {
-        alert("Error");
+        alert(error);
     }
 
     goBack(): void {

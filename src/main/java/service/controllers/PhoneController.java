@@ -5,6 +5,7 @@ import DAO.Phone;
 import DAO.repositories.PersonRepository;
 import DAO.repositories.PhoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,11 +23,7 @@ public class PhoneController
     @Autowired
     private PersonRepository personRepository;
 
-    @RequestMapping(path = "service/add-phone",
-                    method = RequestMethod.POST,
-                    consumes="application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addPhone(@RequestBody Phone phone)
+    public String add(Phone phone)
     {
         if (personRepository.exists(phone.getEntity().getEmail()) &&
             phoneRepository.getByNumber(phone.getNumber()) == null &&
@@ -37,11 +34,9 @@ public class PhoneController
         else throw new IllegalArgumentException("Failed to add phone");
     }
 
-    @RequestMapping(path = "service/phones/remove/{number}/")
-    @ResponseStatus(HttpStatus.OK)
-    public String removePhone(@PathVariable String number)
+    public String remove(Phone phoneValue)
     {
-        Phone phone = phoneRepository.getByNumber(number);
+        Phone phone = phoneRepository.getByNumber(phoneValue.getNumber());
         if(phone != null)
         {
             phoneRepository.delete(phone);
@@ -50,10 +45,11 @@ public class PhoneController
         else throw new IllegalArgumentException("Phone does not exist");
     }
 
-    @RequestMapping(path = "service/phones/{email}/")
-    public List<Phone> getPhones(@PathVariable String email)
+    @RequestMapping(path = "service/contact-information/phone/{personId}/",
+            method = RequestMethod.GET)
+    public List<Phone> get(@PathVariable String personId)
     {
-        Person person = personRepository.getOne(email);
+        Person person = personRepository.getOne(personId);
         if(person != null)
         {
             List<Phone> phones = phoneRepository.getByEntity(person);
