@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params }   from '@angular/router';
+import { Location }                 from '@angular/common';
 
 import { Person } from './entities/Person';
 
@@ -18,10 +20,13 @@ export class PeopleComponent implements OnInit
     count: number = 10;
     page: number = 0;
 
-    constructor(private personService: PersonService) { }
+    constructor(private personService: PersonService,
+                private route: ActivatedRoute,
+                private location: Location) {}
     
     onSelect(person: Person): void {
         this.selectedPerson = person;
+        this.location.go('/person/' + person.email + '/');
     }
 
     getPeople(): void {

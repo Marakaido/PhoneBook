@@ -9,16 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var common_1 = require('@angular/common');
 var person_service_1 = require('./services/person.service');
 var PeopleComponent = (function () {
-    function PeopleComponent(personService) {
+    function PeopleComponent(personService, route, location) {
         this.personService = personService;
+        this.route = route;
+        this.location = location;
         this.people = new Array();
         this.count = 10;
         this.page = 0;
     }
     PeopleComponent.prototype.onSelect = function (person) {
         this.selectedPerson = person;
+        this.location.go('/person/' + person.email + '/');
     };
     PeopleComponent.prototype.getPeople = function () {
         this.loadMore();
@@ -37,7 +42,7 @@ var PeopleComponent = (function () {
             selector: 'people-list',
             templateUrl: './templates/people.component.html'
         }), 
-        __metadata('design:paramtypes', [person_service_1.PersonService])
+        __metadata('design:paramtypes', [person_service_1.PersonService, router_1.ActivatedRoute, common_1.Location])
     ], PeopleComponent);
     return PeopleComponent;
 }());

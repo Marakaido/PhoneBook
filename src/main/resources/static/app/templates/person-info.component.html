@@ -8,3 +8,39 @@
 <label>Profile created: </label><span>{{person.creationDate}}</span><br>
 <label>Last modified: </label><span>{{person.modificationDate}}</span>
 </div>
+
+<h2>Phones</h2>
+<table>
+    <tr>
+        <th>Phone</th>
+        <th>Description</th>
+    </tr>
+    <tr *ngFor="let phone of phones">
+        <td>{{phone.number}}</td>
+        <td>{{phone.comment}}</td>
+    </tr>
+</table>
+
+<h2>Emails</h2>
+<table>
+    <tr>
+        <th>Email</th>
+        <th>Description</th>
+    </tr>
+    <tr *ngFor="let email of emails">
+        <td>{{email.email}}</td>
+        <td>{{email.comment}}</td>
+    </tr>
+</table>
+
+<h2>Addresses</h2>
+<table>
+    <tr>
+        <th>Address</th>
+        <th>Description</th>
+    </tr>
+    <tr *ngFor="let address of addresses">
+        <td>{{address.address}}</td>
+        <td>{{address.comment}}</td>
+    </tr>
+</table>
