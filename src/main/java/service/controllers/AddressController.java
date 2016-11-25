@@ -1,11 +1,11 @@
 package service.controllers;
 
 import DAO.Address;
+import DAO.EntityBase;
 import DAO.Person;
 import DAO.repositories.AddressRepository;
-import DAO.repositories.PersonRepository;
+import DAO.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +20,14 @@ public class AddressController
     @Autowired
     private AddressRepository addressRepository;
     @Autowired
-    private PersonRepository personRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserController userController;
 
     public String add(Address address)
     {
-        if (personRepository.exists(address.getEntity().getEmail()) &&
+        if (userController.userWithEmailExists(address.getEntity().getEmail()) &&
             addressRepository.getByAddress(address.getAddress()) == null &&
             addressRepository.saveAndFlush(address) != null)
         {
@@ -44,14 +47,14 @@ public class AddressController
         else throw new IllegalArgumentException("Address does not exist");
     }
 
-    @RequestMapping(path = "service/contact-information/address/{personId}/",
+    @RequestMapping(path = "service/contact-information/address/{email}/",
             method = RequestMethod.GET)
-    public List<Address> get(@PathVariable String personId)
+    public List<Address> get(@PathVariable String email)
     {
-        Person person = personRepository.getOne(personId);
-        if(person != null)
+        EntityBase entity = userRepository.findOne(email);
+        if(entity != null)
         {
-            List<Address> addresses = addressRepository.getByEntity(person);
+            List<Address> addresses = addressRepository.getByEntity(entity);
             if(addresses.size() > 0)
                 return addresses;
             else throw new IllegalStateException("Person has no addresses");

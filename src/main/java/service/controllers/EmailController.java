@@ -1,13 +1,11 @@
 package service.controllers;
 
 import DAO.Email;
+import DAO.EntityBase;
 import DAO.Person;
-import DAO.Phone;
 import DAO.repositories.EmailRepository;
-import DAO.repositories.PersonRepository;
-import DAO.repositories.PhoneRepository;
+import DAO.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,11 +20,13 @@ public class EmailController
     @Autowired
     private EmailRepository emailRepository;
     @Autowired
-    private PersonRepository personRepository;
+    private UserRepository userRepository;
+    @Autowired
+    private UserController userController;
 
     public String add(Email email)
     {
-        if (personRepository.exists(email.getEntity().getEmail()) &&
+        if (userController.userWithEmailExists(email.getEntity().getEmail()) &&
             emailRepository.getByEmail(email.getEmail()) == null &&
             emailRepository.saveAndFlush(email) != null)
         {
@@ -46,14 +46,14 @@ public class EmailController
         else throw new IllegalArgumentException("Email does not exist");
     }
 
-    @RequestMapping(path = "service/contact-information/email/{personId}/",
+    @RequestMapping(path = "service/contact-information/email/{email}/",
             method = RequestMethod.GET)
-    public List<Email> get(@PathVariable String personId)
+    public List<Email> get(@PathVariable String email)
     {
-        Person person = personRepository.getOne(personId);
-        if(person != null)
+        EntityBase entity = userRepository.findOne(email);
+        if(entity != null)
         {
-            List<Email> emails = emailRepository.getByEntity(person);
+            List<Email> emails = emailRepository.getByEntity(entity);
             if(emails.size() > 0)
                 return emails;
             else throw new IllegalStateException("Person has no emails");
