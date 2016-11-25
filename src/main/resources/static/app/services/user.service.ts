@@ -5,26 +5,20 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Person } from '../entities/EntityBase';
+import { EntityBase, Person, Company } from '../entities/EntityBase';
 import { Phone } from '../entities/ContactInformation';
 
 @Injectable()
-export class PersonService {
+export class UserService {
     constructor (private http: Http) {}
-    
-    getPeople(page: number, count: number): Observable<Person[]> {
-        return this.http.get('/service/people?' + 'page=' + page + '&count=' + count)
-                    .map(this.extractData)
-                    .catch(this.handleError);
-    }
 
-    getPerson(email: string): Observable<Person> {
+    get(email: string): Observable<EntityBase> {
         return this.http.get('/service/' + email + '/')
-                    .map(this.extractData)
-                    .catch(this.handleError);
+        .map(UserService.extractData)
+        .catch(UserService.handleError);
     }
 
-    loginPerson(email: string, password: string): Observable<Person> {
+    login(email: string, password: string): Observable<EntityBase> {
         var headers = new Headers();
         headers.append("Content-Type", 'application/x-www-form-urlencoded');
         var requestoptions = new RequestOptions({
@@ -35,11 +29,11 @@ export class PersonService {
         });
         alert('email=' + email + '&password=' + password);
         return this.http.request(new Request(requestoptions))
-        .map(this.extractData)
-        .catch(this.handleError);
+        .map(UserService.extractData)
+        .catch(UserService.handleError);
     }
 
-    registerPerson(data:Person): Observable<Person> {
+    register(data:EntityBase): Observable<EntityBase> {
         var headers = new Headers();
         headers.append("Content-Type", 'application/json');
         var requestoptions = new RequestOptions({
@@ -49,17 +43,29 @@ export class PersonService {
             body: JSON.stringify(data)
         });
         return this.http.request(new Request(requestoptions))
-        .map(this.extractData)
-        .catch(this.handleError);
+        .map(UserService.extractData)
+        .catch(UserService.handleError);
     }
 
-    private extractData(res: Response) {
+    getPeoplePage(page: number, count: number): Observable<Person[]> {
+        return this.http.get('/service/people?' + 'page=' + page + '&count=' + count)
+                    .map(UserService.extractData)
+                    .catch(UserService.handleError);
+    }
+
+    getCompaniesPage(page: number, count: number): Observable<Company[]> {
+        return this.http.get('/service/companies?' + 'page=' + page + '&count=' + count)
+                    .map(UserService.extractData)
+                    .catch(UserService.handleError);
+    }
+
+    static extractData(res: Response) {
         let body = res.json();
         console.log(res.json());
         return body;
     }
 
-    private handleError (error: Response | any) {
+    static handleError (error: Response | any) {
         let errMsg = "Error";
         if (error instanceof Response) {
             const body = error.json() || '';

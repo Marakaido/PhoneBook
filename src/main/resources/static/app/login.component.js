@@ -10,18 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var EntityBase_1 = require('./entities/EntityBase');
-var person_service_1 = require('./services/person.service');
+var user_service_1 = require('./services/user.service');
 var session_service_1 = require('./services/session.service');
 var LoginComponent = (function () {
-    function LoginComponent(personService, session) {
-        this.personService = personService;
+    function LoginComponent(userService, session) {
+        this.userService = userService;
         this.session = session;
-        this.person = new EntityBase_1.Person();
+        this.user = new EntityBase_1.Person();
     }
     LoginComponent.prototype.login = function () {
         var _this = this;
-        this.personService.loginPerson(this.person.email, this.person.password)
-            .subscribe(function (user) { return _this.session.setUser(user); }, function (error) { return _this.errorMessage = "Authentication failed, please check your email and password"; }, function () { alert("Welcome, " + _this.session.getUser().name); _this.errorMessage = null; });
+        this.userService.login(this.user.email, this.user.password)
+            .subscribe(function (user) { return _this.session.setUser(user); }, function (error) { return _this.errorMessage = "Authentication failed, please check your email and password"; });
     };
     LoginComponent = __decorate([
         core_1.Component({
@@ -29,7 +29,7 @@ var LoginComponent = (function () {
             selector: 'login',
             templateUrl: './templates/login.component.html'
         }), 
-        __metadata('design:paramtypes', [person_service_1.PersonService, session_service_1.SessionService])
+        __metadata('design:paramtypes', [user_service_1.UserService, session_service_1.SessionService])
     ], LoginComponent);
     return LoginComponent;
 }());

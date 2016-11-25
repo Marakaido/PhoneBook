@@ -6,8 +6,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent }   from './app.component';
 import { PeopleComponent } from './people.component';
-import { PersonRegistrationComponent } from './personRegistration.component'
-import { PersonService } from './services/person.service';
+import { RegistrationComponent } from './registration.component'
+import { UserService } from './services/user.service';
 import { SessionService } from './services/session.service';
 import { ContactInformationService } from './services/contactInformation.service';
 import { PersonInfoComponent } from './personInfo.component';
@@ -26,8 +26,8 @@ import { PersonalPageComponent } from './personalPage.component';
         component: PeopleComponent
       },
       {
-        path: 'person-registration',
-        component: PersonRegistrationComponent
+        path: 'registration',
+        component: RegistrationComponent
       },
       {
         path: 'person/:email',
@@ -46,13 +46,13 @@ import { PersonalPageComponent } from './personalPage.component';
   declarations: [ 
     AppComponent,
     PeopleComponent,
-    PersonRegistrationComponent,
+    RegistrationComponent,
     PersonInfoComponent,
     LoginComponent,
     PersonalPageComponent
   ],
   providers: [
-    PersonService,
+    UserService,
     SessionService,
     ContactInformationService
   ],

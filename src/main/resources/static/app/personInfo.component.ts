@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 
-import { Person } from './entities/EntityBase';
+import { EntityBase, Person, Company } from './entities/EntityBase';
 import { ContactInformation, Phone, Email, Address } from './entities/ContactInformation';
-import { PersonService } from './services/person.service';
+import { UserService } from './services/user.service';
 import { SessionService } from './services/session.service';
 import { ContactInformationService } from './services/contactInformation.service';
 
@@ -15,7 +15,7 @@ import { ContactInformationService } from './services/contactInformation.service
 })
 export class PersonInfoComponent implements OnInit
 {
-    person: Person = new Person();
+    user: EntityBase = new Person();
     errorMessage: string;
 
     phones: Phone[];
@@ -23,7 +23,7 @@ export class PersonInfoComponent implements OnInit
     addresses: Address[];
 
     constructor(
-        private personService: PersonService,
+        private userService: UserService,
         private contactInformationService: ContactInformationService, 
         private session: SessionService,
         private route: ActivatedRoute,
@@ -34,9 +34,9 @@ export class PersonInfoComponent implements OnInit
     {
         this.route.params.forEach((params: Params) => {
             let email = params['email'];
-            this.personService.getPerson(email).subscribe(
+            this.userService.get(email).subscribe(
                 response => {
-                    this.person = response;
+                    this.user = response;
                     this.getContactInformation();
                 },
                 error =>  this.handleError);
@@ -46,14 +46,14 @@ export class PersonInfoComponent implements OnInit
 
     private getContactInformation(): void
     {
-        this.contactInformationService.getPhones(this.person.email).subscribe(
+        this.contactInformationService.getPhones(this.user.email).subscribe(
             response => this.phones = response,
             error => this.errorMessage = error);
-        this.contactInformationService.getEmails(this.person.email).subscribe(
+        this.contactInformationService.getEmails(this.user.email).subscribe(
             response => this.emails = response,
             error => this.handleError(error)
         );
-        this.contactInformationService.getAddresses(this.person.email).subscribe(
+        this.contactInformationService.getAddresses(this.user.email).subscribe(
             response => this.addresses = response,
             error => this.handleError(error)
         );

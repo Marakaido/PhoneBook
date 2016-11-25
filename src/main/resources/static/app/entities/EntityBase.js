@@ -19,4 +19,12 @@ var Person = (function (_super) {
     return Person;
 }(EntityBase));
 exports.Person = Person;
+var Company = (function (_super) {
+    __extends(Company, _super);
+    function Company() {
+        _super.call(this, "company");
+    }
+    return Company;
+}(EntityBase));
+exports.Company = Company;
 //# sourceMappingURL=EntityBase.js.map

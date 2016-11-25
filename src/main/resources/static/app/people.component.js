@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var common_1 = require('@angular/common');
-var person_service_1 = require('./services/person.service');
+var user_service_1 = require('./services/user.service');
 var PeopleComponent = (function () {
-    function PeopleComponent(personService, route, location) {
-        this.personService = personService;
+    function PeopleComponent(userService, route, location) {
+        this.userService = userService;
         this.route = route;
         this.location = location;
         this.people = new Array();
@@ -30,7 +30,7 @@ var PeopleComponent = (function () {
     };
     PeopleComponent.prototype.loadMore = function () {
         var _this = this;
-        this.personService.getPeople(this.page, this.count).subscribe(function (people) { return _this.people = _this.people.concat(people); }, function (error) { return _this.errorMessage = error; }, function () { return null; });
+        this.userService.getPeoplePage(this.page, this.count).subscribe(function (people) { return _this.people = _this.people.concat(people); }, function (error) { return _this.errorMessage = error; }, function () { return null; });
         this.page += 1;
     };
     PeopleComponent.prototype.ngOnInit = function () {
@@ -42,7 +42,7 @@ var PeopleComponent = (function () {
             selector: 'people-list',
             templateUrl: './templates/people.component.html'
         }), 
-        __metadata('design:paramtypes', [person_service_1.PersonService, router_1.ActivatedRoute, common_1.Location])
+        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, common_1.Location])
     ], PeopleComponent);
     return PeopleComponent;
 }());

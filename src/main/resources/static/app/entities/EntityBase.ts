@@ -22,3 +22,15 @@ export class Person extends EntityBase
     name: string;
     surname: string;
 }
+
+export class Company extends EntityBase
+{
+    public constructor()
+    {
+        super("company");
+    }
+
+    name: string;
+    description: string;
+    rating: number;
+}

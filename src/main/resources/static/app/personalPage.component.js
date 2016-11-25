@@ -12,12 +12,12 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var common_1 = require('@angular/common');
 var ContactInformation_1 = require('./entities/ContactInformation');
-var person_service_1 = require('./services/person.service');
+var user_service_1 = require('./services/user.service');
 var session_service_1 = require('./services/session.service');
 var contactInformation_service_1 = require('./services/contactInformation.service');
 var PersonalPageComponent = (function () {
-    function PersonalPageComponent(personService, contactInformationService, session, route, location) {
-        this.personService = personService;
+    function PersonalPageComponent(userService, contactInformationService, session, route, location) {
+        this.userService = userService;
         this.contactInformationService = contactInformationService;
         this.session = session;
         this.route = route;
@@ -26,13 +26,16 @@ var PersonalPageComponent = (function () {
         this.newEmails = new Array();
         this.newAddresses = new Array();
         this.editPhones = false;
+        this.displayPersonInformation = false;
+        this.displayCompanyInformation = false;
     }
     PersonalPageComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.person = this.session.getUser();
-        this.contactInformationService.getPhones(this.person.email).subscribe(function (response) { return _this.phones = response; }, function (error) { return _this.handleError(error); });
-        this.contactInformationService.getEmails(this.person.email).subscribe(function (response) { return _this.emails = response; }, function (error) { return _this.handleError(error); });
-        this.contactInformationService.getAddresses(this.person.email).subscribe(function (response) { return _this.addresses = response; }, function (error) { return _this.handleError(error); });
+        this.user = this.session.getUser();
+        this.determineInformationToDisplay();
+        this.contactInformationService.getPhones(this.user.email).subscribe(function (response) { return _this.phones = response; }, function (error) { return _this.handleError(error); });
+        this.contactInformationService.getEmails(this.user.email).subscribe(function (response) { return _this.emails = response; }, function (error) { return _this.handleError(error); });
+        this.contactInformationService.getAddresses(this.user.email).subscribe(function (response) { return _this.addresses = response; }, function (error) { return _this.handleError(error); });
     };
     PersonalPageComponent.prototype.addNewPhoneInput = function () {
         this.addNewInput(this.newPhones, new ContactInformation_1.Phone());
@@ -81,6 +84,12 @@ var PersonalPageComponent = (function () {
     PersonalPageComponent.prototype.handleError = function (error) {
         //alert(error);
     };
+    PersonalPageComponent.prototype.determineInformationToDisplay = function () {
+        if (this.user.type == "person")
+            this.displayPersonInformation = true;
+        else if (this.user.type == "company")
+            this.displayCompanyInformation = true;
+    };
     PersonalPageComponent.prototype.goBack = function () {
         this.location.back();
     };
@@ -90,7 +99,7 @@ var PersonalPageComponent = (function () {
             selector: 'personal-page',
             templateUrl: './templates/personal-page.component.html'
         }), 
-        __metadata('design:paramtypes', [person_service_1.PersonService, contactInformation_service_1.ContactInformationService, session_service_1.SessionService, router_1.ActivatedRoute, common_1.Location])
+        __metadata('design:paramtypes', [user_service_1.UserService, contactInformation_service_1.ContactInformationService, session_service_1.SessionService, router_1.ActivatedRoute, common_1.Location])
     ], PersonalPageComponent);
     return PersonalPageComponent;
 }());

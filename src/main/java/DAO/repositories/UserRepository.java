@@ -23,7 +23,7 @@ public class UserRepository
         EntityBase entity = personRepository.findOne(email);
         if(entity == null) entity = companyRepository.findOne(email);
 
-        if(entity == null) throw new IllegalArgumentException("No user with such email");
+        if(entity == null) entity = null;
         return entity;
     }
 

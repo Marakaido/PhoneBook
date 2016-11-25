@@ -4,7 +4,7 @@ import { Location }                 from '@angular/common';
 
 import { Person } from './entities/EntityBase';
 
-import { PersonService } from './services/person.service';
+import { UserService } from './services/user.service';
 
 @Component({
     moduleId : module.id,
@@ -20,7 +20,7 @@ export class PeopleComponent implements OnInit
     count: number = 10;
     page: number = 0;
 
-    constructor(private personService: PersonService,
+    constructor(private userService: UserService,
                 private route: ActivatedRoute,
                 private location: Location) {}
     
@@ -34,7 +34,7 @@ export class PeopleComponent implements OnInit
     }
 
     loadMore(): void {
-        this.personService.getPeople(this.page, this.count).subscribe(
+        this.userService.getPeoplePage(this.page, this.count).subscribe(
             people => this.people = this.people.concat(people),
             error =>  this.errorMessage = <any>error,
             () => null);

@@ -2,11 +2,21 @@
 
 <p *ngIf="errorMessage">{{errorMessage}}</p>
 
-<div *ngIf="person">
-    <label>Name: </label><input type="text" [(ngModel)]="person.name"><br>
-    <label>Surname: </label><input type="text" [(ngModel)]="person.surname"><br>
-    <label>Profile created: </label><input type="text" [(ngModel)]="person.creationDate"><br>
-    <label>Last modified: </label><input type="text" [(ngModel)]="person.modificationDate">
+<div *ngIf="user">
+    <div *ngIf="displayPersonInformation">
+        <label>Name: </label><span>{{user.name}}</span><br>
+        <label>Surname: </label><span>{{user.surname}}</span>
+    </div>
+
+    <div *ngIf="displayCompanyInformation">
+        <label>Name: </label><span>{{user.name}}</span><br>
+        <label>Description: </label><span>{{user.description}}</span>
+        <label>Rating: </label><span>{{user.rating}}</span>
+    </div>
+
+    <label>Profile created: </label><span>{{user.creationDate}}</span><br>
+    <label>Last modified: </label><span>{{user.modificationDate}}</span>
+
 
     <h2>Phones</h2>
     <button type="button" (click)="editPhones = !editPhones">Edit</button>

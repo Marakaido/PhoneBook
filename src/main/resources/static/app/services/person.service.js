@@ -12,64 +12,15 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
+var user_service_1 = require('./user.service');
 var PersonService = (function () {
     function PersonService(http) {
         this.http = http;
     }
-    PersonService.prototype.getPeople = function (page, count) {
+    PersonService.prototype.getPage = function (page, count) {
         return this.http.get('/service/people?' + 'page=' + page + '&count=' + count)
-            .map(this.extractData)
-            .catch(this.handleError);
-    };
-    PersonService.prototype.getPerson = function (email) {
-        return this.http.get('/service/' + email + '/')
-            .map(this.extractData)
-            .catch(this.handleError);
-    };
-    PersonService.prototype.loginPerson = function (email, password) {
-        var headers = new http_1.Headers();
-        headers.append("Content-Type", 'application/x-www-form-urlencoded');
-        var requestoptions = new http_1.RequestOptions({
-            method: http_1.RequestMethod.Post,
-            url: '/service/login',
-            headers: headers,
-            body: 'email=' + email + '&password=' + password
-        });
-        alert('email=' + email + '&password=' + password);
-        return this.http.request(new http_1.Request(requestoptions))
-            .map(this.extractData)
-            .catch(this.handleError);
-    };
-    PersonService.prototype.registerPerson = function (data) {
-        var headers = new http_1.Headers();
-        headers.append("Content-Type", 'application/json');
-        var requestoptions = new http_1.RequestOptions({
-            method: http_1.RequestMethod.Post,
-            url: '/service/register',
-            headers: headers,
-            body: JSON.stringify(data)
-        });
-        return this.http.request(new http_1.Request(requestoptions))
-            .map(this.extractData)
-            .catch(this.handleError);
-    };
-    PersonService.prototype.extractData = function (res) {
-        var body = res.json();
-        console.log(res.json());
-        return body;
-    };
-    PersonService.prototype.handleError = function (error) {
-        var errMsg = "Error";
-        if (error instanceof http_1.Response) {
-            var body = error.json() || '';
-            var err = body.error || JSON.stringify(body);
-            errMsg = error.status + " - " + (error.statusText || '') + " " + err;
-        }
-        else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return null;
+            .map(user_service_1.UserService.extractData)
+            .catch(user_service_1.UserService.handleError);
     };
     PersonService = __decorate([
         core_1.Injectable(), 

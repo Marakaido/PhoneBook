@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 
-import { Person } from './entities/EntityBase';
+import { EntityBase, Person, Company } from './entities/EntityBase';
 import { ContactInformation, Phone, Email, Address } from './entities/ContactInformation';
-import { PersonService } from './services/person.service';
+import { UserService } from './services/user.service';
 import { SessionService } from './services/session.service';
 import { ContactInformationService } from './services/contactInformation.service';
 
@@ -15,7 +15,7 @@ import { ContactInformationService } from './services/contactInformation.service
 })
 export class PersonalPageComponent implements OnInit
 {
-    person: Person;
+    user: any;
 
     phones: Phone[];
     emails: Email[];
@@ -26,11 +26,13 @@ export class PersonalPageComponent implements OnInit
     newAddresses: Address[] = new Array<Address>();
 
     editPhones: boolean = false;
+    displayPersonInformation: boolean = false;
+    displayCompanyInformation: boolean = false;
 
     errorMessage: string;
 
     constructor(
-        private personService: PersonService,
+        public userService: UserService,
         private contactInformationService: ContactInformationService, 
         private session: SessionService,
         private route: ActivatedRoute,
@@ -38,15 +40,16 @@ export class PersonalPageComponent implements OnInit
     ) {}
 
     ngOnInit(): void {
-        this.person = this.session.getUser();
-        this.contactInformationService.getPhones(this.person.email).subscribe(
+        this.user = this.session.getUser();
+        this.determineInformationToDisplay();
+        this.contactInformationService.getPhones(this.user.email).subscribe(
             response => this.phones = response,
             error => this.handleError(error));
-        this.contactInformationService.getEmails(this.person.email).subscribe(
+        this.contactInformationService.getEmails(this.user.email).subscribe(
             response => this.emails = response,
             error => this.handleError(error)
         );
-        this.contactInformationService.getAddresses(this.person.email).subscribe(
+        this.contactInformationService.getAddresses(this.user.email).subscribe(
             response => this.addresses = response,
             error => this.handleError(error)
         );
@@ -126,6 +129,12 @@ export class PersonalPageComponent implements OnInit
     private handleError(error)
     {
         //alert(error);
+    }
+
+    private determineInformationToDisplay()
+    {
+        if(this.user.type == "person") this.displayPersonInformation = true;
+        else if(this.user.type == "company") this.displayCompanyInformation = true;
     }
 
     goBack(): void {

@@ -15,8 +15,8 @@ var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var people_component_1 = require('./people.component');
-var personRegistration_component_1 = require('./personRegistration.component');
-var person_service_1 = require('./services/person.service');
+var registration_component_1 = require('./registration.component');
+var user_service_1 = require('./services/user.service');
 var session_service_1 = require('./services/session.service');
 var contactInformation_service_1 = require('./services/contactInformation.service');
 var personInfo_component_1 = require('./personInfo.component');
@@ -38,8 +38,8 @@ var AppModule = (function () {
                         component: people_component_1.PeopleComponent
                     },
                     {
-                        path: 'person-registration',
-                        component: personRegistration_component_1.PersonRegistrationComponent
+                        path: 'registration',
+                        component: registration_component_1.RegistrationComponent
                     },
                     {
                         path: 'person/:email',
@@ -58,13 +58,13 @@ var AppModule = (function () {
             declarations: [
                 app_component_1.AppComponent,
                 people_component_1.PeopleComponent,
-                personRegistration_component_1.PersonRegistrationComponent,
+                registration_component_1.RegistrationComponent,
                 personInfo_component_1.PersonInfoComponent,
                 login_component_1.LoginComponent,
                 personalPage_component_1.PersonalPageComponent
             ],
             providers: [
-                person_service_1.PersonService,
+                user_service_1.UserService,
                 session_service_1.SessionService,
                 contactInformation_service_1.ContactInformationService
             ],

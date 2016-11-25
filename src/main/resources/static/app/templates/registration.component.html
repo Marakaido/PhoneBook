@@ -1,0 +1,38 @@
+<div *ngIf="!registrationType">
+    <input type="button" (click)="chooseType('person')" value="Person">
+    <input type="button" (click)="chooseType('company')" value="Company">
+</div>
+
+<div *ngIf="registrationType">
+    <table>
+        <tr>
+            <td>Email</td>
+            <td><input type="email" [(ngModel)]="user.email"/></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" [(ngModel)]="user.name" /></td>
+        </tr>
+        <tr *ngIf="registrationType == 'person'">
+            <td>Surname</td>
+            <td><input type="text" [(ngModel)]="user.surname" /></td>
+        </tr>
+        <tr *ngIf="registrationType == 'company'">
+            <td>Description</td>
+            <td><input type="text" [(ngModel)]="user.description" /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" [(ngModel)]="user.password" /></td>
+        </tr>
+        <tr>
+            <td>Repeat password</td>
+            <td><input type="password"/></td>
+        </tr>
+        <tr>
+            <td colspan=2><button type="submit" (click)="onSubmit()">Submit</button></td>
+        </tr>
+    </table>
+</div>
+
+<span *ngIf="responseMessage">{{responseMessage}}</span>

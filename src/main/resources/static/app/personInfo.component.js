@@ -12,33 +12,33 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var common_1 = require('@angular/common');
 var EntityBase_1 = require('./entities/EntityBase');
-var person_service_1 = require('./services/person.service');
+var user_service_1 = require('./services/user.service');
 var session_service_1 = require('./services/session.service');
 var contactInformation_service_1 = require('./services/contactInformation.service');
 var PersonInfoComponent = (function () {
-    function PersonInfoComponent(personService, contactInformationService, session, route, location) {
-        this.personService = personService;
+    function PersonInfoComponent(userService, contactInformationService, session, route, location) {
+        this.userService = userService;
         this.contactInformationService = contactInformationService;
         this.session = session;
         this.route = route;
         this.location = location;
-        this.person = new EntityBase_1.Person();
+        this.user = new EntityBase_1.Person();
     }
     PersonInfoComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.forEach(function (params) {
             var email = params['email'];
-            _this.personService.getPerson(email).subscribe(function (response) {
-                _this.person = response;
+            _this.userService.get(email).subscribe(function (response) {
+                _this.user = response;
                 _this.getContactInformation();
             }, function (error) { return _this.handleError; });
         });
     };
     PersonInfoComponent.prototype.getContactInformation = function () {
         var _this = this;
-        this.contactInformationService.getPhones(this.person.email).subscribe(function (response) { return _this.phones = response; }, function (error) { return _this.errorMessage = error; });
-        this.contactInformationService.getEmails(this.person.email).subscribe(function (response) { return _this.emails = response; }, function (error) { return _this.handleError(error); });
-        this.contactInformationService.getAddresses(this.person.email).subscribe(function (response) { return _this.addresses = response; }, function (error) { return _this.handleError(error); });
+        this.contactInformationService.getPhones(this.user.email).subscribe(function (response) { return _this.phones = response; }, function (error) { return _this.errorMessage = error; });
+        this.contactInformationService.getEmails(this.user.email).subscribe(function (response) { return _this.emails = response; }, function (error) { return _this.handleError(error); });
+        this.contactInformationService.getAddresses(this.user.email).subscribe(function (response) { return _this.addresses = response; }, function (error) { return _this.handleError(error); });
     };
     PersonInfoComponent.prototype.handleError = function (error) {
         //alert(error);
@@ -52,7 +52,7 @@ var PersonInfoComponent = (function () {
             selector: 'person-info',
             templateUrl: './templates/person-info.component.html'
         }), 
-        __metadata('design:paramtypes', [person_service_1.PersonService, contactInformation_service_1.ContactInformationService, session_service_1.SessionService, router_1.ActivatedRoute, common_1.Location])
+        __metadata('design:paramtypes', [user_service_1.UserService, contactInformation_service_1.ContactInformationService, session_service_1.SessionService, router_1.ActivatedRoute, common_1.Location])
     ], PersonInfoComponent);
     return PersonInfoComponent;
 }());

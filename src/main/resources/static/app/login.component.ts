@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Person } from './entities/EntityBase';
+import { EntityBase, Person } from './entities/EntityBase';
 
-import { PersonService } from './services/person.service';
+import { UserService } from './services/user.service';
 import { SessionService } from './services/session.service';
 
 @Component({
@@ -13,15 +13,14 @@ import { SessionService } from './services/session.service';
 export class LoginComponent
 {
     errorMessage: string;
-    person: Person = new Person();
+    user: EntityBase = new Person();
 
-    constructor(private personService: PersonService, private session: SessionService) { }
+    constructor(private userService: UserService, private session: SessionService) { }
 
     login(): void
     {
-        this.personService.loginPerson(this.person.email, this.person.password)
+        this.userService.login(this.user.email, this.user.password)
             .subscribe(user => this.session.setUser(user),
-                        error => this.errorMessage = "Authentication failed, please check your email and password",
-                        () => { alert("Welcome, " + this.session.getUser().name); this.errorMessage = null });
+                       error => this.errorMessage = "Authentication failed, please check your email and password");
     }    
 }
