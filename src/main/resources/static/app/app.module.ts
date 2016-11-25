@@ -5,7 +5,7 @@ import { RouterModule, Route } from '@angular/router';
 import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent }   from './app.component';
-import { PeopleComponent } from './people.component';
+import { EntityIndexComponent } from './entityIndex.component';
 import { RegistrationComponent } from './registration.component'
 import { UserService } from './services/user.service';
 import { SessionService } from './services/session.service';
@@ -22,8 +22,8 @@ import { PersonalPageComponent } from './personalPage.component';
     JsonpModule,
     RouterModule.forRoot([
       {
-        path: 'people',
-        component: PeopleComponent
+        path: 'index',
+        component: EntityIndexComponent
       },
       {
         path: 'registration',
@@ -39,13 +39,13 @@ import { PersonalPageComponent } from './personalPage.component';
       },
       {
         path: '',
-        redirectTo: 'people',
+        redirectTo: 'index',
         pathMatch: 'full'
       }])
   ],
   declarations: [ 
     AppComponent,
-    PeopleComponent,
+    EntityIndexComponent,
     RegistrationComponent,
     PersonInfoComponent,
     LoginComponent,

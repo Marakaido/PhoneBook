@@ -14,7 +14,7 @@ var forms_1 = require('@angular/forms');
 var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
-var people_component_1 = require('./people.component');
+var entityIndex_component_1 = require('./entityIndex.component');
 var registration_component_1 = require('./registration.component');
 var user_service_1 = require('./services/user.service');
 var session_service_1 = require('./services/session.service');
@@ -34,8 +34,8 @@ var AppModule = (function () {
                 http_1.JsonpModule,
                 router_1.RouterModule.forRoot([
                     {
-                        path: 'people',
-                        component: people_component_1.PeopleComponent
+                        path: 'index',
+                        component: entityIndex_component_1.EntityIndexComponent
                     },
                     {
                         path: 'registration',
@@ -51,13 +51,13 @@ var AppModule = (function () {
                     },
                     {
                         path: '',
-                        redirectTo: 'people',
+                        redirectTo: 'index',
                         pathMatch: 'full'
                     }])
             ],
             declarations: [
                 app_component_1.AppComponent,
-                people_component_1.PeopleComponent,
+                entityIndex_component_1.EntityIndexComponent,
                 registration_component_1.RegistrationComponent,
                 personInfo_component_1.PersonInfoComponent,
                 login_component_1.LoginComponent,

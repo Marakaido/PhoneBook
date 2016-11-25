@@ -8,10 +8,10 @@ import { UserService } from './services/user.service';
 
 @Component({
     moduleId : module.id,
-    selector: 'people-list',
-    templateUrl: './templates/people.component.html'
+    selector: 'entity-index',
+    templateUrl: './templates/entity-index.component.html'
 })
-export class PeopleComponent implements OnInit
+export class EntityIndexComponent implements OnInit
 {
     errorMessage: string;
     selectedPerson: Person;
