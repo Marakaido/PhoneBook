@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Person } from '../entities/Person';
+import { Person } from '../entities/EntityBase';
 import { Phone } from '../entities/ContactInformation';
 
 @Injectable()
@@ -13,13 +13,13 @@ export class PersonService {
     constructor (private http: Http) {}
     
     getPeople(page: number, count: number): Observable<Person[]> {
-        return this.http.get('/service/people-list?' + 'page=' + page + '&count=' + count)
+        return this.http.get('/service/people?' + 'page=' + page + '&count=' + count)
                     .map(this.extractData)
                     .catch(this.handleError);
     }
 
     getPerson(email: string): Observable<Person> {
-        return this.http.get('/service/person/' + email + '/')
+        return this.http.get('/service/' + email + '/')
                     .map(this.extractData)
                     .catch(this.handleError);
     }
@@ -44,7 +44,7 @@ export class PersonService {
         headers.append("Content-Type", 'application/json');
         var requestoptions = new RequestOptions({
             method: RequestMethod.Post,
-            url: '/service/register-person',
+            url: '/service/register',
             headers: headers,
             body: JSON.stringify(data)
         });

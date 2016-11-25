@@ -17,12 +17,12 @@ var PersonService = (function () {
         this.http = http;
     }
     PersonService.prototype.getPeople = function (page, count) {
-        return this.http.get('/service/people-list?' + 'page=' + page + '&count=' + count)
+        return this.http.get('/service/people?' + 'page=' + page + '&count=' + count)
             .map(this.extractData)
             .catch(this.handleError);
     };
     PersonService.prototype.getPerson = function (email) {
-        return this.http.get('/service/person/' + email + '/')
+        return this.http.get('/service/' + email + '/')
             .map(this.extractData)
             .catch(this.handleError);
     };
@@ -45,7 +45,7 @@ var PersonService = (function () {
         headers.append("Content-Type", 'application/json');
         var requestoptions = new http_1.RequestOptions({
             method: http_1.RequestMethod.Post,
-            url: '/service/register-person',
+            url: '/service/register',
             headers: headers,
             body: JSON.stringify(data)
         });

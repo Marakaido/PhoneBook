@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 
-import { Person } from './entities/Person';
+import { Person } from './entities/EntityBase';
 
 import { PersonService } from './services/person.service';
 

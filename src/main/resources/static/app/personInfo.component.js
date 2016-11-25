@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var common_1 = require('@angular/common');
-var Person_1 = require('./entities/Person');
+var EntityBase_1 = require('./entities/EntityBase');
 var person_service_1 = require('./services/person.service');
 var session_service_1 = require('./services/session.service');
 var contactInformation_service_1 = require('./services/contactInformation.service');
@@ -22,7 +22,7 @@ var PersonInfoComponent = (function () {
         this.session = session;
         this.route = route;
         this.location = location;
-        this.person = new Person_1.Person();
+        this.person = new EntityBase_1.Person();
     }
     PersonInfoComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -41,7 +41,7 @@ var PersonInfoComponent = (function () {
         this.contactInformationService.getAddresses(this.person.email).subscribe(function (response) { return _this.addresses = response; }, function (error) { return _this.handleError(error); });
     };
     PersonInfoComponent.prototype.handleError = function (error) {
-        alert(error);
+        //alert(error);
     };
     PersonInfoComponent.prototype.goBack = function () {
         this.location.back();

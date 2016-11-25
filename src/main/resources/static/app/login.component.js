@@ -9,14 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var Person_1 = require('./entities/Person');
+var EntityBase_1 = require('./entities/EntityBase');
 var person_service_1 = require('./services/person.service');
 var session_service_1 = require('./services/session.service');
 var LoginComponent = (function () {
     function LoginComponent(personService, session) {
         this.personService = personService;
         this.session = session;
-        this.person = new Person_1.Person();
+        this.person = new EntityBase_1.Person();
     }
     LoginComponent.prototype.login = function () {
         var _this = this;

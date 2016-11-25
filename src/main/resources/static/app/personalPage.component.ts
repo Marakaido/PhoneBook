@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 
-import { Person } from './entities/Person';
+import { Person } from './entities/EntityBase';
 import { ContactInformation, Phone, Email, Address } from './entities/ContactInformation';
 import { PersonService } from './services/person.service';
 import { SessionService } from './services/session.service';
@@ -41,7 +41,7 @@ export class PersonalPageComponent implements OnInit
         this.person = this.session.getUser();
         this.contactInformationService.getPhones(this.person.email).subscribe(
             response => this.phones = response,
-            error => this.errorMessage = error);
+            error => this.handleError(error));
         this.contactInformationService.getEmails(this.person.email).subscribe(
             response => this.emails = response,
             error => this.handleError(error)
@@ -125,7 +125,7 @@ export class PersonalPageComponent implements OnInit
 
     private handleError(error)
     {
-        alert(error);
+        //alert(error);
     }
 
     goBack(): void {

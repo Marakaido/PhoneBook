@@ -1,14 +1,13 @@
 package service.controllers;
 
-import DAO.Person;
-import DAO.Phone;
-import DAO.repositories.PersonRepository;
+import DAO.EntityBase;
+import DAO.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.sql.Date;
 
 /**
  * @author marakaido
@@ -18,44 +17,42 @@ import java.util.List;
 public class UserController
 {
     @Autowired
-    private PersonRepository personRepository;
+    private UserRepository userRepository;
 
-    @RequestMapping(path = "service/people-list")
-    public List<Person> getListOfPeople(@RequestParam(value="page", defaultValue="0") int page,
-                                        @RequestParam(value="count", defaultValue = "10") int count)
+    @RequestMapping(path = "service/{email}/",
+                    method = RequestMethod.GET)
+    public EntityBase get(@PathVariable String email)
     {
-        return personRepository.findAll(new PageRequest(page, count)).getContent();
+        return userRepository.findOne(email);
     }
 
-    @RequestMapping(path = "service/person/{email}/")
-    public Person getPerson(@PathVariable String email)
+    @RequestMapping(path = "service/login",
+                    method = RequestMethod.POST)
+    public EntityBase login(@RequestParam(value="email") String email,
+                            @RequestParam(value="password") String password)
     {
-        return personRepository.findOne(email);
+        return userRepository.authenticate(email, password);
     }
 
-    @RequestMapping(path = "service/login")
-    @ResponseStatus(HttpStatus.OK)
-    public Person loginEntity(@RequestParam(value="email") String email,
-                              @RequestParam(value="password") String password) throws Exception
-    {
-        Person personData = new Person(password);
-        Person person = personRepository.findOne(email);
-        if(person == null || !person.getPassword().equals(personData.getPassword()))
-        {
-            throw new Exception("Authentication failed");
-        }
-        return person;
-    }
-
-    @RequestMapping(path = "service/register-person",
+    @RequestMapping(path = "service/register",
                     method = RequestMethod.POST,
                     consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Person registerPerson(@RequestBody Person person)
+    public EntityBase register(@RequestBody EntityBase entity)
     {
-        person = new Person(person.getEmail(), person.getName(), person.getSurname(), person.getPassword());
-        if (personRepository.findOne(person.getEmail()) == null &&
-                personRepository.saveAndFlush(person) != null) return person;
-        else throw new IllegalArgumentException("Registration failed, user with this id already exists");
+        Date registrationDate = new Date(System.currentTimeMillis());
+        entity.setCreationDate(registrationDate);
+        entity.setModificationDate(registrationDate);
+
+        if(!userWithEmailExists(entity.getEmail()))
+        {
+            return userRepository.saveAndFlush(entity);
+        }
+        else throw new IllegalArgumentException("User with this email already exists");
+    }
+
+    public boolean userWithEmailExists(String key)
+    {
+        return userRepository.findOne(key) != null;
     }
 }

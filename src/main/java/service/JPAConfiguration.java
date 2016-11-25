@@ -1,5 +1,6 @@
 package service;
 
+import DAO.repositories.UserRepository;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -54,5 +55,10 @@ public class JPAConfiguration
         emfb.setJpaVendorAdapter(jpaVendorAdapter);
         emfb.setPackagesToScan("DAO");
         return emfb;
+    }
+
+    @Bean
+    public UserRepository userRepository() {
+        return new UserRepository();
     }
 }

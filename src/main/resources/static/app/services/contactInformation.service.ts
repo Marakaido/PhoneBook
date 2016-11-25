@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Person } from '../entities/Person';
+import { Person } from '../entities/EntityBase';
 import { ContactInformation, Phone, Email, Address } from '../entities/ContactInformation';
 
 @Injectable()

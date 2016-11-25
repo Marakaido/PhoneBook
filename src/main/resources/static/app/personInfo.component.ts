@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 
-import { Person } from './entities/Person';
+import { Person } from './entities/EntityBase';
 import { ContactInformation, Phone, Email, Address } from './entities/ContactInformation';
 import { PersonService } from './services/person.service';
 import { SessionService } from './services/session.service';
@@ -61,7 +61,7 @@ export class PersonInfoComponent implements OnInit
 
     private handleError(error: any): void
     {
-        alert(error);
+        //alert(error);
     }
 
     goBack(): void {

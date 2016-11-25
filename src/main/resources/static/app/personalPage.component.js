@@ -30,7 +30,7 @@ var PersonalPageComponent = (function () {
     PersonalPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.person = this.session.getUser();
-        this.contactInformationService.getPhones(this.person.email).subscribe(function (response) { return _this.phones = response; }, function (error) { return _this.errorMessage = error; });
+        this.contactInformationService.getPhones(this.person.email).subscribe(function (response) { return _this.phones = response; }, function (error) { return _this.handleError(error); });
         this.contactInformationService.getEmails(this.person.email).subscribe(function (response) { return _this.emails = response; }, function (error) { return _this.handleError(error); });
         this.contactInformationService.getAddresses(this.person.email).subscribe(function (response) { return _this.addresses = response; }, function (error) { return _this.handleError(error); });
     };
@@ -79,7 +79,7 @@ var PersonalPageComponent = (function () {
         contacts.splice(contacts.indexOf(instance), 1);
     };
     PersonalPageComponent.prototype.handleError = function (error) {
-        alert(error);
+        //alert(error);
     };
     PersonalPageComponent.prototype.goBack = function () {
         this.location.back();

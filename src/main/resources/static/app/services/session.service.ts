@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Person } from '../entities/Person';
+import { Person } from '../entities/EntityBase';
 
 @Injectable()
 export class SessionService {
