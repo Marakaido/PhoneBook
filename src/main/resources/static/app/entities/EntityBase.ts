@@ -10,6 +10,16 @@ export class EntityBase
     modificationDate: string;
     password: string;
     type: string;
+
+    public isPerson(): boolean
+    {
+        return this.type === "person";
+    }
+
+    public isCompany(): boolean
+    {
+        return this.type === "company";
+    }
 }
 
 export class Person extends EntityBase

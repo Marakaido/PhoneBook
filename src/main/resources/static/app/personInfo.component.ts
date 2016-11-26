@@ -16,7 +16,6 @@ import { ContactInformationService } from './services/contactInformation.service
 export class PersonInfoComponent implements OnInit
 {
     user: EntityBase = new Person();
-    errorMessage: string;
 
     phones: Phone[];
     emails: Email[];
@@ -48,15 +47,15 @@ export class PersonInfoComponent implements OnInit
     {
         this.contactInformationService.getPhones(this.user.email).subscribe(
             response => this.phones = response,
-            error => this.errorMessage = error);
+            error => this.handleError(error));
+        
         this.contactInformationService.getEmails(this.user.email).subscribe(
             response => this.emails = response,
-            error => this.handleError(error)
-        );
+            error => this.handleError(error));
+        
         this.contactInformationService.getAddresses(this.user.email).subscribe(
             response => this.addresses = response,
-            error => this.handleError(error)
-        );
+            error => this.handleError(error));
     }
 
     private handleError(error: any): void

@@ -1,9 +1,11 @@
 <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+<input type="checkbox" checked="true" value="People" [(ngModel)]="includePeople" />
+<input type="checkbox" checked="true" value="Companies" [(ngModel)]="includeCompanies" />
 <table>
-    <tr *ngFor="let person of people" [routerLink]="['/person', person.email]">
-        <td>{{person.email}}</td>
-        <td>{{person.name}}</td>
-        <td>{{person.surname}}</td>
+    <tr *ngFor="let entity of entities" [routerLink]="['/', entity.email]">
+        <td>{{entity.email}}</td>
+        <td>{{entity.name}}</td>
+        <td>{{entity.surname}}</td>
     </tr>
 </table>
 <button (click)="loadMore()">Load more</button>

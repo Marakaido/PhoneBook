@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 
-import { Person } from './entities/EntityBase';
+import { EntityBase, Person, Company } from './entities/EntityBase';
 
 import { UserService } from './services/user.service';
 
@@ -14,19 +14,23 @@ import { UserService } from './services/user.service';
 export class EntityIndexComponent implements OnInit
 {
     errorMessage: string;
-    selectedPerson: Person;
-    people: Person[] = new Array<Person>();
-    person: any;
+    
+    selectedEntity: EntityBase;
+    entities: EntityBase[] = new Array<EntityBase>();
+    
     count: number = 10;
     page: number = 0;
+
+    includePeople: boolean = true;
+    includeCompanies: boolean = true;
 
     constructor(private userService: UserService,
                 private route: ActivatedRoute,
                 private location: Location) {}
     
-    onSelect(person: Person): void {
-        this.selectedPerson = person;
-        this.location.go('/person/' + person.email + '/');
+    onSelect(entity: EntityBase): void {
+        this.selectedEntity = entity;
+        this.location.go('/' + entity.email + '/');
     }
 
     getPeople(): void {
@@ -35,7 +39,7 @@ export class EntityIndexComponent implements OnInit
 
     loadMore(): void {
         this.userService.getPeoplePage(this.page, this.count).subscribe(
-            people => this.people = this.people.concat(people),
+            people => this.entities = this.entities.concat(people),
             error =>  this.errorMessage = <any>error,
             () => null);
         this.page += 1;

@@ -30,7 +30,7 @@ import { PersonalPageComponent } from './personalPage.component';
         component: RegistrationComponent
       },
       {
-        path: 'person/:email',
+        path: ':email',
         component: PersonInfoComponent
       },
       {
