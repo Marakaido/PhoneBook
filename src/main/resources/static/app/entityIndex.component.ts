@@ -16,7 +16,7 @@ export class EntityIndexComponent implements OnInit
     errorMessage: string;
     
     selectedEntity: EntityBase;
-    entities: EntityBase[] = new Array<EntityBase>();
+    entities: EntityBase[];
     
     count: number = 10;
     page: number = 0;
@@ -33,19 +33,55 @@ export class EntityIndexComponent implements OnInit
         this.location.go('/' + entity.email + '/');
     }
 
-    getPeople(): void {
-        this.loadMore();
+    loadNextPage()
+    {
+        this.page += 1;
+        this.updateList();
     }
 
-    loadMore(): void {
+    toggleIncludePeople()
+    {
+        this.includePeople = !this.includePeople;
+        this.updateList();
+    }
+
+    toggleIncludeCompanies()
+    {
+        this.includeCompanies = !this.includeCompanies;
+        this.updateList();
+    }
+
+    updateList()
+    {
+        this.entities = new Array<EntityBase>();
+        if(this.includePeople) this.loadMorePeople();
+        if(this.includeCompanies) this.loadMoreCompanies();
+        this.sortList();
+    }
+
+    loadMorePeople(): void {
         this.userService.getPeoplePage(this.page, this.count).subscribe(
             people => this.entities = this.entities.concat(people),
-            error =>  this.errorMessage = <any>error,
-            () => null);
-        this.page += 1;
+            error =>  this.errorMessage = <any>error);
+    }
+
+    loadMoreCompanies(): void {
+        this.userService.getCompaniesPage(this.page, this.count).subscribe(
+            companies => this.entities = this.entities.concat(companies),
+            error =>  this.errorMessage = <any>error);
+    }
+
+    sortList()
+    {
+        this.entities.sort((left, right) => 
+        {
+            if(left.creationDate < right.creationDate) return -1;
+            else if(left.creationDate > right.creationDate) return 1;
+            else return 0;
+        })
     }
 
     ngOnInit(): void {
-        this.getPeople();
+        this.updateList();
     }
 }

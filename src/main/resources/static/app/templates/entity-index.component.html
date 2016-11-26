@@ -1,6 +1,6 @@
 <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
-<input type="checkbox" checked="true" value="People" [(ngModel)]="includePeople" />
-<input type="checkbox" checked="true" value="Companies" [(ngModel)]="includeCompanies" />
+<input type="checkbox" [(ngModel)]="includePeople" (ngModelChange)="updateList()" />Show people<br/>
+<input type="checkbox" [(ngModel)]="includeCompanies" (ngModelChange)="updateList()" />Show companies<br/>
 <table>
     <tr *ngFor="let entity of entities" [routerLink]="['/', entity.email]">
         <td>{{entity.email}}</td>
@@ -8,4 +8,4 @@
         <td>{{entity.surname}}</td>
     </tr>
 </table>
-<button (click)="loadMore()">Load more</button>
+<button (click)="loadNextPage()">Load more</button>
