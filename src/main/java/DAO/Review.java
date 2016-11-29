@@ -19,6 +19,7 @@ public class Review
     @Column(name = "score", nullable = false)
     private double score;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     private Person author;
 
@@ -95,4 +96,19 @@ public class Review
             targetCompany.setEmail(email);
         }
     }
+
+    @JsonProperty(value = "author")
+    public String getAuthorEmail() { return author.getEmail(); }
+
+    @JsonProperty(value = "author")
+    public void setAuthorEmail(String email)
+    {
+        if(author != null) author.setEmail(email);
+        else
+        {
+            author = new Person();
+            author.setEmail(email);
+        }
+    }
+
 }
