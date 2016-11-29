@@ -1,5 +1,8 @@
 package DAO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity(name = "reviews")
@@ -10,15 +13,16 @@ public class Review
     @GeneratedValue
     private long id;
 
-    @Column(name = "message")
+    @Column(name = "message", nullable = true)
     private String message;
 
-    @Column(name = "score")
+    @Column(name = "score", nullable = false)
     private double score;
 
     @ManyToOne(optional = false)
     private Person author;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     private Company targetCompany;
 
@@ -73,5 +77,22 @@ public class Review
     public void setTargetCompany(Company targetCompany)
     {
         this.targetCompany = targetCompany;
+    }
+
+    @JsonProperty(value = "company")
+    public String getCompanyEmail()
+    {
+        return targetCompany.getEmail();
+    }
+
+    @JsonProperty(value = "company")
+    public void setCompanyEmail(String email)
+    {
+        if(targetCompany != null) targetCompany.setEmail(email);
+        else
+        {
+            targetCompany = new Company();
+            targetCompany.setEmail(email);
+        }
     }
 }
