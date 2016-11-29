@@ -44,3 +44,12 @@ export class Company extends EntityBase
     description: string;
     rating: number;
 }
+
+export class Review
+{
+    id: number;
+    message: string;
+    score: number;
+    author: Person;
+    company: Company;
+}
