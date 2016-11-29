@@ -9,6 +9,7 @@ import { EntityIndexComponent } from './entityIndex.component';
 import { RegistrationComponent } from './registration.component'
 import { UserService } from './services/user.service';
 import { SessionService } from './services/session.service';
+import { ReviewService } from './services/review.service'
 import { ContactInformationService } from './services/contactInformation.service';
 import { PersonInfoComponent } from './personInfo.component';
 import { LoginComponent } from './login.component';
@@ -54,7 +55,8 @@ import { PersonalPageComponent } from './personalPage.component';
   providers: [
     UserService,
     SessionService,
-    ContactInformationService
+    ContactInformationService,
+    ReviewService
   ],
   bootstrap:    [ AppComponent ]
 })
