@@ -11,7 +11,6 @@ import { UserService } from './services/user.service';
 import { SessionService } from './services/session.service';
 import { ReviewService } from './services/review.service'
 import { ContactInformationService } from './services/contactInformation.service';
-import { PersonInfoComponent } from './personInfo.component';
 import { LoginComponent } from './login.component';
 import { PersonalPageComponent } from './personalPage.component';
 
@@ -32,7 +31,7 @@ import { PersonalPageComponent } from './personalPage.component';
       },
       {
         path: ':email',
-        component: PersonInfoComponent
+        component: PersonalPageComponent
       },
       {
         path: 'personal-page',
@@ -48,7 +47,6 @@ import { PersonalPageComponent } from './personalPage.component';
     AppComponent,
     EntityIndexComponent,
     RegistrationComponent,
-    PersonInfoComponent,
     LoginComponent,
     PersonalPageComponent
   ],

@@ -15,7 +15,7 @@ import { ContactInformationService } from './services/contactInformation.service
 })
 export class PersonalPageComponent implements OnInit
 {
-    user: any;
+    user: EntityBase = null;
 
     phones: Phone[];
     emails: Email[];
@@ -40,8 +40,26 @@ export class PersonalPageComponent implements OnInit
     ) {}
 
     ngOnInit(): void {
-        this.user = this.session.getUser();
+        this.route.params.forEach((params: Params) => {
+            let email = params['email'];
+            this.userService.get(email).subscribe(
+                response => {
+                    this.user = response;
+                    this.initUserData();
+                },
+                error =>  this.user = this.session.getUser(),
+                () => this.initUserData());
+        });
+    }
+
+    initUserData()
+    {
+        this.getContactInformation();
         this.determineInformationToDisplay();
+    }
+
+    getContactInformation()
+    {
         this.contactInformationService.getPhones(this.user.email).subscribe(
             response => this.phones = response,
             error => this.handleError(error));
@@ -69,7 +87,7 @@ export class PersonalPageComponent implements OnInit
     }
     private addNewInput<T extends ContactInformation>(contacts: T[], instance: T): void
     {
-        instance.entity = this.session.getUser().email;
+        instance.entity = this.user.email;
         contacts.push(instance);
     }
 
