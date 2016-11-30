@@ -39,7 +39,7 @@ public class UserRepository
     public EntityBase authenticate(String email, String password)
     {
         EntityBase entity = personRepository.findOne(email);
-        if(entity == null) companyRepository.findOne(email);
+        if(entity == null) entity = companyRepository.findOne(email);
 
         if(entity != null && entity.getPassword().equals(password)) return entity;
         else throw new IllegalArgumentException("Failed to authenticate");
