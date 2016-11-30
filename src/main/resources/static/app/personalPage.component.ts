@@ -25,7 +25,11 @@ export class PersonalPageComponent implements OnInit
     newEmails: Email[] = new Array<Email>();
     newAddresses: Address[] = new Array<Address>();
 
-    editPhones: boolean = false;
+    private editable: boolean = false;
+    private editPhones: boolean = false;
+    private editEmails: boolean = false;
+    private editAddresses: boolean = false;
+
     displayPersonInformation: boolean = false;
     displayCompanyInformation: boolean = false;
 
@@ -153,6 +157,8 @@ export class PersonalPageComponent implements OnInit
     {
         if(this.user.type == "person") this.displayPersonInformation = true;
         else if(this.user.type == "company") this.displayCompanyInformation = true;
+
+        if(this.user.email == this.session.getUser().email) this.editable = true; 
     }
 
     goBack(): void {

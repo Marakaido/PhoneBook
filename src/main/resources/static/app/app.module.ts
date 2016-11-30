@@ -13,6 +13,7 @@ import { ReviewService } from './services/review.service'
 import { ContactInformationService } from './services/contactInformation.service';
 import { LoginComponent } from './login.component';
 import { PersonalPageComponent } from './personalPage.component';
+import { UserInfoComponent } from './userInfo.component';
 
 @NgModule({
   imports:      [ 
@@ -31,7 +32,7 @@ import { PersonalPageComponent } from './personalPage.component';
       },
       {
         path: ':email',
-        component: PersonalPageComponent
+        component: UserInfoComponent
       },
       {
         path: 'personal-page',
@@ -48,7 +49,8 @@ import { PersonalPageComponent } from './personalPage.component';
     EntityIndexComponent,
     RegistrationComponent,
     LoginComponent,
-    PersonalPageComponent
+    PersonalPageComponent,
+    UserInfoComponent
   ],
   providers: [
     UserService,

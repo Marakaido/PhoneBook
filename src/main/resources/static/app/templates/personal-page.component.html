@@ -19,7 +19,7 @@
 
 
     <h2>Phones</h2>
-    <button type="button" (click)="editPhones = !editPhones">Edit</button>
+    <button type="button" (click)="editPhones = !editPhones" *ngIf="editable">Edit</button>
     <table>
         <tr>
             <th>Phone</th>
@@ -43,7 +43,7 @@
     </table>
 
     <h2>Emails</h2>
-    <button type="button" (click)="editEmails = !editEmails">Edit</button>
+    <button type="button" (click)="editEmails = !editEmails" *ngIf="editable">Edit</button>
     <table>
         <tr>
             <th>Email</th>
@@ -67,7 +67,7 @@
     </table>
 
     <h2>Addresses</h2>
-    <button type="button" (click)="editAddresses = !editAddresses">Edit</button>
+    <button type="button" (click)="editAddresses = !editAddresses" *ngIf="editable">Edit</button>
     <table>
         <tr>
             <th>Address</th>
@@ -90,4 +90,13 @@
         </tr>
     </table>
 
+    <div *ngIf="displayCompanyInformation">
+        <label>Reviews: </label>
+        <table>
+            <tr *ngFor="let review of reviews">
+                <td>{{review.author}}</td>
+                <td>{{review.message}}</td>
+            </tr>
+        </table>
+    </div>
 </div>
