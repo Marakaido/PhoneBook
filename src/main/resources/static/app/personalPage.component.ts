@@ -7,74 +7,37 @@ import { ContactInformation, Phone, Email, Address } from './entities/ContactInf
 import { UserService } from './services/user.service';
 import { SessionService } from './services/session.service';
 import { ContactInformationService } from './services/contactInformation.service';
+import { ReviewService } from './services/review.service';
+import { UserPageBase } from './userPageBase';
 
 @Component({
     moduleId : module.id,
     selector: 'personal-page',
     templateUrl: './templates/personal-page.component.html'
 })
-export class PersonalPageComponent implements OnInit
+export class PersonalPageComponent extends UserPageBase implements OnInit
 {
-    user: EntityBase = null;
-
-    phones: Phone[];
-    emails: Email[];
-    addresses: Address[];
-
     newPhones: Phone[] = new Array<Phone>();
     newEmails: Email[] = new Array<Email>();
     newAddresses: Address[] = new Array<Address>();
 
-    private editable: boolean = false;
+    private editable: boolean = true;
     private editPhones: boolean = false;
     private editEmails: boolean = false;
     private editAddresses: boolean = false;
 
-    displayPersonInformation: boolean = false;
-    displayCompanyInformation: boolean = false;
-
-    errorMessage: string;
-
-    constructor(
-        public userService: UserService,
-        private contactInformationService: ContactInformationService, 
-        private session: SessionService,
-        private route: ActivatedRoute,
-        private location: Location
-    ) {}
+    constructor(userService: UserService,
+                contactInformationService: ContactInformationService,
+                reviewService: ReviewService,
+                session: SessionService,
+                route: ActivatedRoute,
+                location: Location) 
+    {
+        super(userService, contactInformationService, reviewService, session, route, location);
+    }
 
     ngOnInit(): void {
-        this.route.params.forEach((params: Params) => {
-            let email = params['email'];
-            this.userService.get(email).subscribe(
-                response => {
-                    this.user = response;
-                    this.initUserData();
-                },
-                error =>  this.user = this.session.getUser(),
-                () => this.initUserData());
-        });
-    }
-
-    initUserData()
-    {
-        this.getContactInformation();
-        this.determineInformationToDisplay();
-    }
-
-    getContactInformation()
-    {
-        this.contactInformationService.getPhones(this.user.email).subscribe(
-            response => this.phones = response,
-            error => this.handleError(error));
-        this.contactInformationService.getEmails(this.user.email).subscribe(
-            response => this.emails = response,
-            error => this.handleError(error)
-        );
-        this.contactInformationService.getAddresses(this.user.email).subscribe(
-            response => this.addresses = response,
-            error => this.handleError(error)
-        );
+        this.init(this.session.getUser());
     }
 
     addNewPhoneInput(): void
@@ -146,22 +109,5 @@ export class PersonalPageComponent implements OnInit
     commitContactInformationRemoval<T>(contacts: T[], instance: T)
     {
         contacts.splice(contacts.indexOf(instance), 1)
-    }
-
-    private handleError(error)
-    {
-        //alert(error);
-    }
-
-    private determineInformationToDisplay()
-    {
-        if(this.user.type == "person") this.displayPersonInformation = true;
-        else if(this.user.type == "company") this.displayCompanyInformation = true;
-
-        if(this.user.email == this.session.getUser().email) this.editable = true; 
-    }
-
-    goBack(): void {
-        this.location.back();
     }
 }

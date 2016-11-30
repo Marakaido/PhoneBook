@@ -6,12 +6,12 @@ import { EntityBase } from '../entities/EntityBase';
 export class SessionService {
     private user: EntityBase;
 
-    public getUser()
+    public getUser(): EntityBase
     {
         return this.user;
     }
 
-    public setUser(user: EntityBase)
+    public setUser(user: EntityBase): void
     {
         this.user = user;
     }

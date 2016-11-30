@@ -31,12 +31,12 @@ import { UserInfoComponent } from './userInfo.component';
         component: RegistrationComponent
       },
       {
-        path: ':email',
-        component: UserInfoComponent
-      },
-      {
         path: 'personal-page',
         component: PersonalPageComponent
+      },
+      {
+        path: ':email',
+        component: UserInfoComponent
       },
       {
         path: '',
