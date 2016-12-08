@@ -2,10 +2,12 @@ package DAO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import javax.persistence.*;
 
 @Entity(name = "reviews")
+
 public class Review
 {
     @Id
@@ -19,13 +21,25 @@ public class Review
     @Column(name = "score", nullable = false)
     private double score;
 
-    @JsonIgnore
     @ManyToOne(optional = false)
     private Person author;
 
-    @JsonIgnore
     @ManyToOne(optional = false)
+    @JsonProperty(value = "company")
     private Company targetCompany;
+
+    @JsonProperty
+    public String getCompanyEmail()
+    {
+        return targetCompany.getEmail();
+    }
+
+    @JsonProperty
+    public void setCompanyEmail(String email)
+    {
+        if(targetCompany == null) targetCompany = new Company();
+        targetCompany.setEmail(email);
+    }
 
     public long getId()
     {
@@ -79,36 +93,4 @@ public class Review
     {
         this.targetCompany = targetCompany;
     }
-
-    @JsonProperty(value = "company")
-    public String getCompanyEmail()
-    {
-        return targetCompany.getEmail();
-    }
-
-    @JsonProperty(value = "company")
-    public void setCompanyEmail(String email)
-    {
-        if(targetCompany != null) targetCompany.setEmail(email);
-        else
-        {
-            targetCompany = new Company();
-            targetCompany.setEmail(email);
-        }
-    }
-
-    @JsonProperty(value = "author")
-    public String getAuthorEmail() { return author.getEmail(); }
-
-    @JsonProperty(value = "author")
-    public void setAuthorEmail(String email)
-    {
-        if(author != null) author.setEmail(email);
-        else
-        {
-            author = new Person();
-            author.setEmail(email);
-        }
-    }
-
 }

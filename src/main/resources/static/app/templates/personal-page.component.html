@@ -98,5 +98,10 @@
                 <td>{{review.message}}</td>
             </tr>
         </table>
+        <div *ngIf="session.isAuthenticated()">
+            <input type="number" [(ngModel)]="newReview.score" placeholder="score" />
+            <input type="text" [(ngModel)]="newReview.message" placeholder="review" />
+            <input type="button" (click)="addReview()" value="Add review" />
+        </div>
     </div>
 </div>

@@ -15,4 +15,9 @@ export class SessionService {
     {
         this.user = user;
     }
+
+    public isAuthenticated(): boolean
+    {
+        return this.user != null;
+    }
 }

@@ -8,10 +8,7 @@ import DAO.repositories.CompanyRepository;
 import DAO.repositories.ReviewRepository;
 import DAO.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import service.controllers.data_wrappers.input.ReviewInput;
 
 import java.util.List;
@@ -36,10 +33,9 @@ public class ReviewController
     @RequestMapping(path = "service/review",
                     method = RequestMethod.POST,
                     consumes="application/json")
-    public String add(ReviewInput reviewInput)
+    public String add(@RequestBody Review review)
     {
-        if (userController.userWithEmailExists(reviewInput.getUserData().getEmail()) &&
-            reviewRepository.saveAndFlush(reviewInput.getReview()) != null)
+        if (reviewRepository.saveAndFlush(review) != null)
         {
             return "Review successfully added";
         }
@@ -66,13 +62,7 @@ public class ReviewController
     public List<Review> get(@PathVariable String email)
     {
         Company company = companyRepository.findOne(email);
-        if(company != null)
-        {
-            List<Review> reviews = reviewRepository.getByTargetCompany(company);
-            if(reviews.size() > 0)
-                return reviews;
-            else throw new IllegalStateException("Company has no reviews");
-        }
+        if(company != null) return reviewRepository.getByTargetCompany(company);
         else throw new IllegalArgumentException("Company with this email is not registered");
     }
 }
