@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router }   from '@angular/router';
+
 import { SessionService } from './services/session.service';
 
 @Component({
@@ -8,7 +10,14 @@ import { SessionService } from './services/session.service';
 })
 export class AppComponent 
 {
-  constructor(private session: SessionService) {}
+  displayHeader: boolean = true;
+  constructor(private session: SessionService,
+              private router: Router)
+  {
+    /*this.router.events.subscribe((val) => {
+      this.displayHeader = false;
+    });*/
+  }
   
   loginVisible: boolean = false;
 }

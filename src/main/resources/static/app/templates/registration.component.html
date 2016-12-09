@@ -1,38 +1,46 @@
-<div *ngIf="!registrationType">
-    <input type="button" (click)="chooseType('person')" value="Person">
-    <input type="button" (click)="chooseType('company')" value="Company">
-</div>
+<div class="w3-container w3-margin">
+    <div class="w3-panel w3-red" *ngIf="responseMessage">
+        <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">&times;</span>
+        <h3>Error</h3>
+        <p>{{responseMessage}}</p>
+    </div>
 
-<div *ngIf="registrationType">
-    <table>
-        <tr>
-            <td>Email</td>
-            <td><input type="email" [(ngModel)]="user.email"/></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td><input type="text" [(ngModel)]="user.name" /></td>
-        </tr>
-        <tr *ngIf="registrationType == 'person'">
-            <td>Surname</td>
-            <td><input type="text" [(ngModel)]="user.surname" /></td>
-        </tr>
-        <tr *ngIf="registrationType == 'company'">
-            <td>Description</td>
-            <td><input type="text" [(ngModel)]="user.description" /></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" [(ngModel)]="user.password" /></td>
-        </tr>
-        <tr>
-            <td>Repeat password</td>
-            <td><input type="password"/></td>
-        </tr>
-        <tr>
-            <td colspan=2><button type="submit" (click)="onSubmit()">Submit</button></td>
-        </tr>
-    </table>
+    <div class="w3-container">
+        <div class="w3-container w3-teal">
+            <h2>Register</h2>
+        </div>
+        <div class="w3-container w3-card-4 w3-display-container">
+            <div class="w3-display-middle" *ngIf="!registrationType">
+                <button (click)="chooseType('person')" class="w3-btn">Person</button>
+                <button (click)="chooseType('company')"class="w3-btn">Company</button>
+            </div>
+            <div *ngIf="registrationType">
+                <p>
+                <label class="w3-text-grey">Email</label>
+                <input class="w3-input w3-border" required="true" type="email" [(ngModel)]="user.email">
+                </p>
+                <p>
+                <label class="w3-text-grey">Name</label>
+                <input class="w3-input w3-border" required="true" type="text" [(ngModel)]="user.name">
+                </p>
+                <p *ngIf="registrationType == 'person'">
+                <label class="w3-text-grey">Surname</label>
+                <input class="w3-input w3-border" required="true" type="text" [(ngModel)]="user.surname">
+                </p>
+                <p *ngIf="registrationType == 'company'">
+                <label class="w3-text-grey">Description</label>
+                <input class="w3-input w3-border" required="true" type="text" [(ngModel)]="user.description">
+                </p>
+                <p>      
+                <label class="w3-text-grey">Password</label>
+                <input class="w3-input w3-border" required="true" type="password" [(ngModel)]="user.password">
+                </p>
+                <p>
+                <label class="w3-text-grey">Repeat password</label>
+                <input class="w3-input w3-border" required="true" type="password">
+                </p>
+                <p><button type="button" class="w3-btn w3-padding w3-teal" style="width:120px" (click)="onSubmit()">Submit &nbsp; ❯</button></p>
+            </div>
+        </div>
+    </div>
 </div>
-
-<span *ngIf="responseMessage">{{responseMessage}}</span>

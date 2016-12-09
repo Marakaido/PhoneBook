@@ -1,11 +1,17 @@
 <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
-<input type="checkbox" [(ngModel)]="includePeople" (ngModelChange)="updateList()" />Show people<br/>
-<input type="checkbox" [(ngModel)]="includeCompanies" (ngModelChange)="updateList()" />Show companies<br/>
-<table>
-    <tr *ngFor="let entity of entities" [routerLink]="['/', entity.email]">
-        <td>{{entity.email}}</td>
-        <td>{{entity.name}}</td>
-        <td>{{entity.surname}}</td>
-    </tr>
-</table>
-<button (click)="loadNextPage()">Load more</button>
+<p>
+<input class="w3-check" type="checkbox" [(ngModel)]="includePeople" (ngModelChange)="updateList()">
+<label class="w3-validate">People</label>
+</p>
+<p>
+<input class="w3-check" type="checkbox" [(ngModel)]="includeCompanies" (ngModelChange)="updateList()">
+<label class="w3-validate">Companies</label>
+</p>
+<ul class="w3-ul w3-card-4">
+  <li class="w3-padding-16" *ngFor="let entity of entities" [routerLink]="['/', entity.email]">
+    <div class="material-icons w3-large" width="style:60px;">person</div>
+    <span class="w3-xlarge">{{entity.name}} {{entity.surname}}</span><br>
+    <span>{{entity.email}}</span>
+  </li>
+</ul>
+<button class="w3-btn w3-padding w3-teal" style="width:120px" (click)="loadNextPage()" >Load more </button>

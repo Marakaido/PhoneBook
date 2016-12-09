@@ -1,6 +1,25 @@
-<label for="emailInput">Email</label>
-<input id="emailInput" type="email" [(ngModel)]="user.email" />
-<label for="passwordInput">Password</label>
-<input id="passwordInput" type="password" [(ngModel)]="user.password" />
-<input type="button" value="login" (click)="login()" />
-<span style="background-color: red;" *ngIf="errorMessage">{{errorMessage}}</span>
+<div class="w3-container w3-margin">
+    <div class="w3-panel w3-red" *ngIf="errorMessage">
+        <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">&times;</span>
+        <h3>Error</h3>
+        <p>{{errorMessage}}</p>
+    </div>
+
+    <div class="w3-container">
+        <div class="w3-container w3-teal">
+            <h2>Log In</h2>
+        </div>
+        <div class="w3-container w3-card-4">
+            <p>
+            <label class="w3-text-grey">Email</label>
+            <input class="w3-input w3-border" required="true" type="email" [(ngModel)]="user.email">
+            </p>
+            <p>      
+            <label class="w3-text-grey">Password</label>
+            <input class="w3-input w3-border" required="true" type="password" [(ngModel)]="user.password">
+            </p>
+            <p><button type="button" class="w3-btn w3-padding w3-teal" style="width:120px" (click)="login()">Log in &nbsp; ❯</button></p>
+        </div>
+    </div>
+</div>
+
