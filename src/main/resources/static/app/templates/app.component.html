@@ -6,7 +6,7 @@
     </li>
     <li><a class="w3-padding-large w3-white" routerLink="/index">Home</a></li>
     <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" routerLink="/registration">Register</a></li>
-    <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" routerLink="/login" *ngIf="!session.getUser()">Login</a></li>
+    <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" (click)="displayLogin = !displayLogin" *ngIf="!session.getUser()">Login</a></li>
     <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" routerLink="/personal-page" *ngIf="session.getUser()">Personal Page</a></li>
   </ul>
 
@@ -22,10 +22,15 @@
 <header *ngIf="displayHeader" class="w3-container w3-red w3-center w3-padding-128">
   <h1 class="w3-margin w3-jumbo">PHONE BOOK</h1>
   <p class="w3-xlarge">Connect and be connected. People and services you need in a blink of an eye.</p>
-  <a class="w3-btn w3-padding-16 w3-large w3-margin-top" routerLink="/registration">Get Started</a>
+  <a class="w3-btn w3-padding-16 w3-large w3-margin-top" (click)="displayRegistration = !displayRegistration" *ngIf="!session.isAuthenticated()">Get Started</a>
 </header>
 
-<div class="w3-row-padding w3-container">
+<div class="w3-row" style="position: relative; top: -100px;">
+  <login *ngIf="displayLogin && !session.isAuthenticated()"></login>
+  <registration *ngIf="displayRegistration && !session.isAuthenticated()"></registration>
+</div>
+
+<div class="w3-row">
   <router-outlet></router-outlet>
 </div>
 

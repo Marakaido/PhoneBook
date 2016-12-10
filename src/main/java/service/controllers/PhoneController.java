@@ -11,6 +11,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -34,6 +35,9 @@ public class PhoneController
             phoneRepository.getByNumber(phone.getNumber()) == null &&
             phoneRepository.saveAndFlush(phone) != null)
         {
+            EntityBase entity = userRepository.findOne(phone.getEntity().getEmail());
+            entity.setModificationDate(new Date(System.currentTimeMillis()));
+            userRepository.saveAndFlush(entity);
             return "Phone successfully added";
         }
         else throw new IllegalArgumentException("Failed to add phone");

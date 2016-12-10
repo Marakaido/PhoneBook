@@ -9,10 +9,10 @@
         <div class="w3-container w3-teal">
             <h2>Register</h2>
         </div>
-        <div class="w3-container w3-card-4 w3-display-container">
-            <div class="w3-display-middle" *ngIf="!registrationType">
-                <button (click)="chooseType('person')" class="w3-btn">Person</button>
-                <button (click)="chooseType('company')"class="w3-btn">Company</button>
+        <div class="w3-container w3-card-4" style="background-color: white;">
+            <div class="w3-center" *ngIf="!registrationType">
+                <button (click)="chooseType('person')" class="w3-btn w3-margin">Person</button>
+                <button (click)="chooseType('company')"class="w3-btn w3-margin">Company</button>
             </div>
             <div *ngIf="registrationType">
                 <p>

@@ -58,6 +58,28 @@ export class PersonalPageComponent extends UserPageBase implements OnInit
         contacts.push(instance);
     }
 
+    addPhone(phone): void
+    {
+        this.contactInformationService.add<Phone>(phone).subscribe(
+            response => this.commitContactInformationAddition<Phone>(this.phones, this.newPhones, phone),
+            error => this.handleError(error)
+        );
+    }
+    addEmail(email): void
+    {
+        this.contactInformationService.add<Phone>(email).subscribe(
+            response => this.commitContactInformationAddition<Email>(this.emails, this.newEmails, email),
+            error => this.handleError(error)
+        );
+    }
+    addAddress(address): void
+    {
+        this.contactInformationService.add<Address>(address).subscribe(
+            response => this.commitContactInformationAddition<Address>(this.addresses, this.newAddresses, address),
+            error => this.handleError(error)
+        );
+    }
+
     saveNewPhones(): void
     {
         this.newPhones.forEach(phone => this.contactInformationService.add<Phone>(phone).subscribe(
@@ -83,6 +105,19 @@ export class PersonalPageComponent extends UserPageBase implements OnInit
     {
         newContacts.splice(newContacts.indexOf(instance), 1);
         contacts.push(instance);
+    }
+
+    removeNewPhone(phone)
+    {
+        this.commitContactInformationRemoval<Phone>(this.newPhones, phone);
+    }
+    removeNewEmail(email)
+    {
+        this.commitContactInformationRemoval<Email>(this.newEmails, email);
+    }
+    removeNewAddress(address)
+    {
+        this.commitContactInformationRemoval<Address>(this.newAddresses, address);
     }
 
     removePhone(phone: Phone): void
