@@ -7,10 +7,11 @@ import 'rxjs/add/operator/catch';
 
 import { Person } from '../entities/EntityBase';
 import { ContactInformation, Phone, Email, Address } from '../entities/ContactInformation';
+import { SessionService } from './session.service';
 
 @Injectable()
 export class ContactInformationService {
-    constructor (private http: Http) {}
+    constructor (private http: Http, private session: SessionService) {}
     
     getPhones(email: string): Observable<Phone[]>
     {
@@ -45,14 +46,18 @@ export class ContactInformationService {
 
     private formRequest(contactInformation: ContactInformation, method: RequestMethod) : Request
     {
-        alert(JSON.stringify(contactInformation));
+        var data = {
+            userData: {email: this.session.getUser().email, password: this.session.getPassword()},
+            data: contactInformation
+        };
+        alert(JSON.stringify(data));
         var headers = new Headers();
         headers.append("Content-Type", 'application/json');
         var requestOptions: RequestOptions = new RequestOptions({
             method: method,
             url: 'service/contact-information',
             headers: headers,
-            body: JSON.stringify(contactInformation)
+            body: JSON.stringify(data)
         });
 
         return new Request(requestOptions);

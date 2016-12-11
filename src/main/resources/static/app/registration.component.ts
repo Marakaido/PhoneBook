@@ -15,6 +15,7 @@ import { SessionService } from './services/session.service';
 export class RegistrationComponent
 {
     user: EntityBase;
+    password: string;
     responseMessage: string;
     registrationType: string;
 
@@ -34,7 +35,7 @@ export class RegistrationComponent
 
     completeRegistration(): void
     {
-        this.session.setUser(this.user);
+        this.session.setUser(this.user, this.password);
         this.router.navigateByUrl("/personal-page");
     }
 

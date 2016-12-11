@@ -13,14 +13,14 @@ import { SessionService } from './services/session.service';
 export class LoginComponent
 {
     errorMessage: string;
-    user: EntityBase = new Person();
+    data = {email: "", password: ""};
 
     constructor(private userService: UserService, private session: SessionService) { }
 
     login(): void
     {
-        this.userService.login(this.user.email, this.user.password)
-            .subscribe(user => this.session.setUser(user),
+        this.userService.login(this.data.email, this.data.password)
+            .subscribe(user => this.session.setUser(user, this.data.password),
                        error => this.errorMessage = "Authentication failed, please check your email and password");
     }    
 }

@@ -6,6 +6,7 @@ import DAO.Person;
 import org.hibernate.UnknownEntityTypeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import service.controllers.data_wrappers.input.AuthentificationInput;
 
 /**
  * @author marakaido
@@ -43,5 +44,10 @@ public class UserRepository
 
         if(entity != null && entity.getPassword().equals(password)) return entity;
         else throw new IllegalArgumentException("Failed to authenticate");
+    }
+
+    public EntityBase authenticate(AuthentificationInput data)
+    {
+        return authenticate(data.getEmail(), data.getPassword());
     }
 }
