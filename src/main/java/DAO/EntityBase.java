@@ -27,12 +27,15 @@ public class EntityBase
     private String email;
 
     @Column(name = "creation_date", nullable = false)
+    @JsonIgnore
     private Date creationDate;
 
     @Column(name = "modification_date", nullable = false)
+    @JsonIgnore
     private Date modificationDate;
 
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
     public EntityBase()

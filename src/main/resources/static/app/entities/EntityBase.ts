@@ -6,9 +6,6 @@ export class EntityBase
     }
 
     email: string;
-    creationDate: string;
-    modificationDate: string;
-    password: string;
     type: string;
 
     public isPerson(): boolean
