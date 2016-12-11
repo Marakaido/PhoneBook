@@ -14,6 +14,7 @@ export class AppComponent
 {
   displayHeader: boolean = true;
   displayRegistration: boolean = false;
+  displayLogin: boolean = false;
   displayIndex: boolean = true;
 
   searchResult: EntityBase[] = new Array<EntityBase>();
@@ -43,6 +44,20 @@ export class AppComponent
       );
     }
     else this.searchResult = null;
+  }
+  
+
+  login()
+  {
+    this.displayLogin = true;
+    this.displayRegistration = false;
+    document.getElementById("popup").style.display = "block";
+  }
+  register()
+  {
+    this.displayRegistration = true;
+    this.displayLogin = false;
+    document.getElementById("popup").style.display = "block";
   }
   
   loginVisible: boolean = false;
