@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 
@@ -17,7 +17,13 @@ export class EntityIndexComponent implements OnInit
     
     selectedEntity: EntityBase;
     entities: EntityBase[];
-    
+    @Input()
+    set inputEntities(inputEntities: EntityBase[]) 
+    {
+        if(inputEntities != null) this.entities = inputEntities;
+        else this.updateList();
+    }
+
     count: number = 10;
     page: number = 0;
 

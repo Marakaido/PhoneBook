@@ -33,6 +33,13 @@ export class UserService {
         .catch(UserService.handleError);
     }
 
+    search(name: string, surname: string)
+    {
+        return this.http.get('/service/search/' + name)
+        .map(UserService.extractData)
+        .catch(UserService.handleError);
+    }
+
     register(data:EntityBase): Observable<EntityBase> {
         var headers = new Headers();
         headers.append("Content-Type", 'application/json');

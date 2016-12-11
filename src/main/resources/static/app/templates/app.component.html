@@ -5,7 +5,7 @@
       <a class="w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="toggleMenu()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     </li>
     <li><a class="w3-padding-large w3-white" routerLink="/index">Home</a></li>
-    <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" routerLink="/registration">Register</a></li>
+    <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" (click)="displayRegistration = !displayRegistration">Register</a></li>
     <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" (click)="displayLogin = !displayLogin" *ngIf="!session.getUser()">Login</a></li>
     <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" routerLink="/personal-page" *ngIf="session.getUser()">Personal Page</a></li>
   </ul>
@@ -22,7 +22,11 @@
 <header *ngIf="displayHeader" class="w3-container w3-red w3-center w3-padding-128">
   <h1 class="w3-margin w3-jumbo">PHONE BOOK</h1>
   <p class="w3-xlarge">Connect and be connected. People and services you need in a blink of an eye.</p>
-  <a class="w3-btn w3-padding-16 w3-large w3-margin-top" (click)="displayRegistration = !displayRegistration" *ngIf="!session.isAuthenticated()">Get Started</a>
+  <div class="search_bar">
+    <div><i class="material-icons">search</i></div>
+    <input type="text" (ngModelChange)="search($event)" [(ngModel)]="searchString">
+  </div>
+  
 </header>
 
 <div class="w3-row" style="position: relative; top: -100px;">
@@ -32,6 +36,10 @@
 
 <div class="w3-row">
   <router-outlet></router-outlet>
+</div>
+
+<div class="w3-row" *ngIf="displayIndex">
+  <entity-index [inputEntities]="searchResult"></entity-index>
 </div>
 
 <!-- Footer -->

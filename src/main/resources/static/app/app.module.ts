@@ -23,10 +23,6 @@ import { UserInfoComponent } from './userInfo.component';
     JsonpModule,
     RouterModule.forRoot([
       {
-        path: 'index',
-        component: EntityIndexComponent
-      },
-      {
         path: 'registration',
         component: RegistrationComponent
       },
@@ -41,11 +37,6 @@ import { UserInfoComponent } from './userInfo.component';
       {
         path: ':email',
         component: UserInfoComponent
-      },
-      {
-        path: '',
-        redirectTo: 'index',
-        pathMatch: 'full'
       }])
   ],
   declarations: [ 
