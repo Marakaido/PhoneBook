@@ -2,9 +2,9 @@
 <div class="w3-top">
   <ul class="w3-navbar w3-red w3-card-2 w3-left-align w3-large">
     <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
-      <a class="w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="toggleMenu()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a class="w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" (click)="toggleMenu()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     </li>
-    <li><a class="w3-padding-large w3-white" routerLink="/">Home</a></li>
+    <li><a class="w3-padding-large w3-hover-white" routerLink="/">Home</a></li>
     <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" (click)="register()">Register</a></li>
     <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" (click)="login()" *ngIf="!session.getUser()">Login</a></li>
     <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" routerLink="/personal-page" *ngIf="session.getUser()">Personal Page</a></li>
@@ -13,8 +13,10 @@
   <!-- Navbar on small screens -->
   <div id="miniNavBar" class="w3-hide w3-hide-large w3-hide-medium">
     <ul class="w3-navbar w3-left-align w3-large w3-black">
-      <li><a class="w3-padding-large" routerLink="/registration">Register</a></li>
-      <li><a class="w3-padding-large" routerLink="/index">Index</a></li>
+      <li><a class="w3-padding-large w3-hover-white" routerLink="/">Home</a></li>
+      <li><a class="w3-padding-large w3-hover-white" (click)="register()">Register</a></li>
+      <li><a class="w3-padding-large w3-hover-white" (click)="login()" *ngIf="!session.getUser()">Login</a></li>
+      <li><a class="w3-padding-large w3-hover-white" routerLink="/personal-page" *ngIf="session.getUser()">Personal Page</a></li>
     </ul>
   </div>
 </div>
@@ -31,7 +33,7 @@
 
 <div class="w3-modal" id="popup" >
   <div class="w3-modal-content w3-animate-top" style="background-color: transparent;">
-  <login *ngIf="displayLogin && !session.isAuthenticated()"></login>
+  <login *ngIf="displayLogin && !session.isAuthenticated()" (onSuccessfulLogin)="onSuccessfulLogin($event)"></login>
   <registration *ngIf="displayRegistration && !session.isAuthenticated()"></registration>
   </div>
 </div>
@@ -54,15 +56,3 @@
    <a href="#" class="w3-hover-text-indigo"><i class="fa fa-linkedin"></i></a>
  </div>
 </footer>
-
-<script>
-// Used to toggle the menu on small screens when clicking on the menu button
-function toggleMenu() {
-    var x = document.getElementById("miniNavBar");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-</script>

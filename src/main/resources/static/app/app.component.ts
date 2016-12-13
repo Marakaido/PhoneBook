@@ -28,8 +28,10 @@ export class AppComponent
       switch(this.router.url)
       {
         case "/": this.displayHeader = true; this.displayIndex = true; break;
-        default: this.displayHeader = false;  this.displayIndex = false;
+        default: this.displayHeader = false; this.displayIndex = false; 
       }
+      this.displayLogin = false; 
+      this.displayRegistration = false;
     });
   }
 
@@ -60,5 +62,23 @@ export class AppComponent
     document.getElementById("popup").style.display = "block";
   }
   
-  loginVisible: boolean = false;
+  toggleMenu()
+  {
+    var x = document.getElementById("miniNavBar");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+  }
+
+  onSuccessfulLogin(success: boolean)
+  {
+    alert("Logged in: " + success);
+    if(success) 
+    {
+      this.displayLogin = false;
+      document.getElementById("popup").style.display = "none";
+    }
+  }
 }

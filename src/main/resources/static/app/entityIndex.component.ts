@@ -79,12 +79,7 @@ export class EntityIndexComponent implements OnInit
 
     sortList()
     {
-        this.entities.sort((left, right) => 
-        {
-            if(left.creationDate < right.creationDate) return -1;
-            else if(left.creationDate > right.creationDate) return 1;
-            else return 0;
-        })
+        
     }
 
     ngOnInit(): void {
