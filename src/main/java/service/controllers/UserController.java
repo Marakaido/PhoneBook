@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import service.controllers.data_wrappers.input.AuthentificationInput;
+import service.controllers.data_wrappers.input.RegistrationData;
 
 import java.sql.Date;
 import java.util.LinkedList;
@@ -58,11 +59,13 @@ public class UserController
                     method = RequestMethod.POST,
                     consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public EntityBase register(@RequestBody EntityBase entity)
+    public EntityBase register(@RequestBody RegistrationData data)
     {
+        EntityBase entity = data.getUser();
         Date registrationDate = new Date(System.currentTimeMillis());
         entity.setCreationDate(registrationDate);
         entity.setModificationDate(registrationDate);
+        entity.setPassword(data.getPassword());
 
         if(!userWithEmailExists(entity.getEmail()))
         {

@@ -27,7 +27,7 @@ export class RegistrationComponent
     onSubmit(): void
     {
         alert(JSON.stringify(this.user));
-        this.userService.register(this.user).subscribe(
+        this.userService.register(this.user, this.password).subscribe(
             response => this.user = response,
             error =>  this.responseMessage = <any>error,
             () => this.completeRegistration());

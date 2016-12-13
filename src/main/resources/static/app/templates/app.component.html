@@ -4,7 +4,7 @@
     <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
       <a class="w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" (click)="toggleMenu()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     </li>
-    <li><a class="w3-padding-large w3-hover-white" routerLink="/">Home</a></li>
+    <li><a class="w3-padding-large w3-hover-white" href="/">Home</a></li>
     <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" (click)="register()">Register</a></li>
     <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" (click)="login()" *ngIf="!session.getUser()">Login</a></li>
     <li class="w3-hide-small"><a class="w3-padding-large w3-hover-white" routerLink="/personal-page" *ngIf="session.getUser()">Personal Page</a></li>

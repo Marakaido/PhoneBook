@@ -40,8 +40,10 @@ export class UserService {
         .catch(UserService.handleError);
     }
 
-    register(data:EntityBase): Observable<EntityBase> {
+    register(entity:EntityBase, _password:string): Observable<EntityBase> {
         var headers = new Headers();
+        var data = {user: entity, password: _password};
+        alert(JSON.stringify(data));
         headers.append("Content-Type", 'application/json');
         var requestoptions = new RequestOptions({
             method: RequestMethod.Post,

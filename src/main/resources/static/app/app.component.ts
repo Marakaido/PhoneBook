@@ -28,6 +28,7 @@ export class AppComponent
       switch(this.router.url)
       {
         case "/": this.displayHeader = true; this.displayIndex = true; break;
+        case "/personal-page": document.getElementById("popup").style.display = "none"; break;
         default: this.displayHeader = false; this.displayIndex = false; 
       }
       this.displayLogin = false; 
