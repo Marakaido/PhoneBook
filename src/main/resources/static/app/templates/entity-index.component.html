@@ -1,3 +1,12 @@
+<header class="w3-container w3-red w3-center w3-padding-128">
+  <h1 class="w3-margin w3-jumbo">PHONE BOOK</h1>
+  <p class="w3-xlarge">Connect and be connected. People and services you need in a blink of an eye.</p>
+  <div class="search_bar">
+    <div><i class="material-icons">search</i></div>
+    <input type="text" (ngModelChange)="search($event)" [(ngModel)]="searchString">
+  </div>
+</header>
+
 <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
 <p>
 <input class="w3-check" type="checkbox" [(ngModel)]="includePeople" (ngModelChange)="updateList()">

@@ -17,9 +17,6 @@ export class AppComponent
   displayLogin: boolean = false;
   displayIndex: boolean = true;
 
-  searchResult: EntityBase[] = new Array<EntityBase>();
-
-  searchString: string = "";
   constructor(private session: SessionService,
               private userService: UserService,
               private router: Router)
@@ -34,19 +31,6 @@ export class AppComponent
       this.displayLogin = false; 
       this.displayRegistration = false;
     });
-  }
-
-  search(event)
-  {
-    console.log(event);
-    if(event.length > 0)
-    {
-      this.userService.search(event, event).subscribe(
-        (result) => this.searchResult = <any>result,
-        (error) => alert(error)
-      );
-    }
-    else this.searchResult = null;
   }
   
 

@@ -35,6 +35,10 @@ import { UserInfoComponent } from './userInfo.component';
         component: LoginComponent
       },
       {
+        path: '',
+        component: EntityIndexComponent
+      },
+      {
         path: ':email',
         component: UserInfoComponent
       }])

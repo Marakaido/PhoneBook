@@ -17,10 +17,14 @@ export class EntityIndexComponent implements OnInit
     
     selectedEntity: EntityBase;
     entities: EntityBase[];
-    @Input()
-    set inputEntities(inputEntities: EntityBase[]) 
+    
+    searchResult: EntityBase[] = new Array<EntityBase>();
+    searchString: string = "";
+
+    
+    inputEntities() 
     {
-        if(inputEntities != null) this.entities = inputEntities;
+        if(this.searchResult != null) this.entities = this.searchResult;
         else this.updateList();
     }
 
@@ -80,6 +84,22 @@ export class EntityIndexComponent implements OnInit
     sortList()
     {
         
+    }
+
+    search(event)
+    {
+        console.log(event);
+        if(event.length > 0)
+        {
+        this.userService.search(event, event).subscribe(
+            (result) => {
+                this.searchResult = <any>result
+                this.inputEntities();
+            },
+            (error) => alert(error)
+        );
+        }
+        else this.searchResult = null;
     }
 
     ngOnInit(): void {
