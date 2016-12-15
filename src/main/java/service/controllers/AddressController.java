@@ -27,8 +27,7 @@ public class AddressController
 
     public String add(Address address)
     {
-        if (userController.userWithEmailExists(address.getEntity().getEmail()) &&
-            addressRepository.getByAddress(address.getAddress()) == null &&
+        if (addressRepository.getByAddress(address.getAddress()) == null &&
             addressRepository.saveAndFlush(address) != null)
         {
             return "Address successfully added";

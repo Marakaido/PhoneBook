@@ -12,7 +12,7 @@
         <div class="w3-card-4 w3-margin" style="background-color: white;">   
             <header class="w3-container w3-blue">
                 <h1>Phones</h1>
-                <a class="w3-text-lightgray" (click)="editPhones = !editPhones" *ngIf="session.isAuthenticated()">Edit</a>
+                <a class="w3-text-lightgray" (click)="editPhones = !editPhones" *ngIf="editable && session.isAuthenticated()">Edit</a>
             </header>
 
             <div class="w3-container">
@@ -57,7 +57,7 @@
         <div class="w3-card-4 w3-margin" style="background-color: white;">   
             <header class="w3-container w3-green">
                 <h1>Emails</h1>
-                <a class="w3-text-lightgray" (click)="editEmails = !editEmails" *ngIf="session.isAuthenticated()">Edit</a>
+                <a class="w3-text-lightgray" (click)="editEmails = !editEmails" *ngIf="editable && session.isAuthenticated()">Edit</a>
             </header>
 
             <div class="w3-container">
@@ -102,7 +102,7 @@
         <div class="w3-card-4 w3-margin" style="background-color: white;">   
             <header class="w3-container w3-yellow">
                 <h1>Addresses</h1>
-                <a class="w3-text-lightgray" (click)="editAddresses = !editAddresses" *ngIf="session.isAuthenticated()">Edit</a>
+                <a class="w3-text-lightgray" (click)="editAddresses = !editAddresses" *ngIf="editable && session.isAuthenticated()">Edit</a>
             </header>
 
             <div class="w3-container">
@@ -124,13 +124,13 @@
                     </tr> 
                     
                     <tr *ngFor="let address of newAddresses">
-                        <td *ngIf="editAddresses">
+                        <td *ngIf="editable && editAddresses">
                             <input class="w3-input w3-border" type="text" placeholder="Number" [(ngModel)]="address.number">
                         </td>
-                        <td *ngIf="editAddresses">
+                        <td *ngIf="editable && editAddresses">
                             <input class="w3-input w3-border" type="text" placeholder="Description" [(ngModel)]="address.comment" (change)="addAddress(address)">
                         </td> 
-                        <td *ngIf="editAddresses">
+                        <td *ngIf="editable && editAddresses">
                             <i class="material-icons w3-text-red" (click)="removeNewAddress(address)">delete</i>
                         </td>
                     </tr>

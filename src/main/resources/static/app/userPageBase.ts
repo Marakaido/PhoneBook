@@ -18,6 +18,7 @@ export class UserPageBase
     addresses: Address[];
     reviews: Review[];
 
+    editable: boolean = false;
     displayPersonInformation: boolean = false;
     displayCompanyInformation: boolean = false;
 

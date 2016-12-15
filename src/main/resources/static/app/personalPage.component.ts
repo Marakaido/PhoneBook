@@ -21,7 +21,6 @@ export class PersonalPageComponent extends UserPageBase implements OnInit
     newEmails: Email[] = new Array<Email>();
     newAddresses: Address[] = new Array<Address>();
 
-    private editable: boolean = true;
     private editPhones: boolean = false;
     private editEmails: boolean = false;
     private editAddresses: boolean = false;
@@ -34,6 +33,7 @@ export class PersonalPageComponent extends UserPageBase implements OnInit
                 location: Location) 
     {
         super(userService, contactInformationService, reviewService, session, route, location);
+        this.editable = true;
     }
 
     ngOnInit(): void {

@@ -26,8 +26,7 @@ public class EmailController
 
     public String add(Email email)
     {
-        if (userController.userWithEmailExists(email.getEntity().getEmail()) &&
-            emailRepository.getByEmail(email.getEmail()) == null &&
+        if (emailRepository.getByEmail(email.getEmail()) == null &&
             emailRepository.saveAndFlush(email) != null)
         {
             return "Email successfully added";

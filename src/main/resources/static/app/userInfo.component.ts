@@ -27,6 +27,7 @@ export class UserInfoComponent extends UserPageBase implements OnInit
                 location: Location) 
     {
         super(userService, contactInformationService, reviewService, session, route, location);
+        this.editable = false;
     }
 
     ngOnInit(): void {

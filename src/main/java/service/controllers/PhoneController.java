@@ -31,8 +31,7 @@ public class PhoneController
 
     public String add(Phone phone)
     {
-        if (userController.userWithEmailExists(phone.getEntity().getEmail()) &&
-            phoneRepository.getByNumber(phone.getNumber()) == null &&
+        if (phoneRepository.getByNumber(phone.getNumber()) == null &&
             phoneRepository.saveAndFlush(phone) != null)
         {
             EntityBase entity = userRepository.findOne(phone.getEntity().getEmail());

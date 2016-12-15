@@ -38,7 +38,7 @@ public class UserController
     }
 
     @RequestMapping(path = "service/search/{search_string}",
-            method = RequestMethod.GET)
+                    method = RequestMethod.GET)
     public List<EntityBase> search(@PathVariable String search_string)
     {
         List<EntityBase> result = new LinkedList<>();
